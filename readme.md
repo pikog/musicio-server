@@ -1,5 +1,5 @@
 Music.IO webserver
 ====
 
-This a web server in Node.js, for a school project named Music.IO
+This a web server in Node.js, for a project named Music.IO
 
