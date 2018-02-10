@@ -54,11 +54,6 @@ Matter.Engine.run(engine)
 // run the renderer
 Matter.Render.run(render)
 
-const test = () => 
-{
-    Matter.Body.translate(boxA, {x: 100, y: 0})
-}
-
 document.addEventListener('DOMContentLoaded', () =>
 {
     MatterTools.Gui.create(engine, undefined, render)
