@@ -1,5 +1,7 @@
 //Import package
 const express = require('express')
+const Player = require('./Player.js')
+const Room = require('./Room.js')
 
 //init express
 const app = express()
@@ -28,3 +30,8 @@ app.listen(port, () =>
 {
     console.log(`Server started on port ${port}`)
 })
+
+const myRoom = new Room('test')
+new Player('Jean', myRoom)
+new Player('Paul', myRoom)
+new Player('Uulzic', myRoom)
