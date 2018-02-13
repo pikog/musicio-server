@@ -1,13 +1,24 @@
-//Import package
-const express = require('express')
-const Player = require('./Player.js')
-const Room = require('./Room.js')
+//Import classes
+const connection = require('./lib/connection.js')
 
-//init express
+//Init express
+const express = require('express')
 const app = express()
 
-//Config express
+//Init http server based on express
+const http = require('http').Server(app)
 const port = process.env.PORT || 8080;
+
+//Start server
+http.listen(port, () =>
+{
+    console.log(`Server started on port ${port}`)
+})
+
+//Init socket.io
+const io = require('socket.io').listen(http)
+
+//Config express
 app.set('view engine', 'hbs')
 
 //Active public folder
@@ -25,13 +36,10 @@ app.use((req, res, next) =>
     res.redirect(`/rooms/${Math.floor(Math.random()*100)}`)
 })
 
-//Start app
-app.listen(port, () =>
-{
-    console.log(`Server started on port ${port}`)
-})
+//Socket Event listener
+const rooms = []
 
-const myRoom = new Room('test')
-new Player('Jean', myRoom)
-new Player('Paul', myRoom)
-new Player('Uulzic', myRoom)
+io.on('connection', (socket) =>
+{
+    connection.onConnection(socket, rooms)
+})
