@@ -37,9 +37,8 @@ app.use((req, res, next) =>
 })
 
 //Socket Event listener
-const rooms = []
 
 io.on('connection', (socket) =>
 {
-    connection.onConnection(socket, rooms)
+    connection.onConnection(socket)
 })
