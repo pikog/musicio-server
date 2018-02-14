@@ -26,7 +26,7 @@
             ctx.fillRect(0, 0, 500, 500)
             for(const player of players)
             {
-                ctx.strokeStyle = 'orange'
+                ctx.strokeStyle = player.color
                 ctx.beginPath()
                 ctx.arc(player.position.x, player.position.y, 10, 0, Math.PI*2, true)
                 ctx.stroke()
