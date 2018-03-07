@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/pikog/musicio-server#readme",
   "dependencies": {
+    "chalk": "^2.3.2",
     "express": "^4.16.2",
     "hbs": "^4.0.1",
     "matter-js": "^0.14.1",
