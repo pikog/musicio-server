@@ -27,15 +27,20 @@
             for(const player of players)
             {
                 ctx.strokeStyle = player.color
+                ctx.fillStyle = player.color
+                ctx.fillRect(player.position.x, player.position.y, 1, 1)
                 ctx.beginPath()
                 ctx.arc(player.position.x, player.position.y, 10, 0, Math.PI*2, true)
+                ctx.stroke()
+                ctx.beginPath()
+                ctx.arc(player.position.x, player.position.y, 900, 0, Math.PI*2, true)
                 ctx.stroke()
             }
         }
 
         const sendBall = (x, y) =>
         {
-            socket.emit('sendBall', {x: x, y: y});
+            socket.emit('sendBall', {x, y})
         }
 
     </script>
