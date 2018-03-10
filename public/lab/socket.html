@@ -15,6 +15,8 @@
             drawPlayers(players)
         })
 
+        const pos = {x: 50, y: 50}
+
         const canvas = document.querySelector('canvas')
         const ctx = canvas.getContext('2d')
         ctx.fillStyle = '#000000'
@@ -33,15 +35,25 @@
                 ctx.arc(player.position.x, player.position.y, 10, 0, Math.PI*2, true)
                 ctx.stroke()
                 ctx.beginPath()
-                ctx.arc(player.position.x, player.position.y, 900, 0, Math.PI*2, true)
+                ctx.arc(player.position.x, player.position.y, 300, 0, Math.PI*2, true)
                 ctx.stroke()
             }
+            pos.x = players[0].position.x
+            pos.y = players[0].position.y
         }
 
         const sendBall = (x, y) =>
         {
             socket.emit('sendBall', {x, y})
         }
+
+        document.querySelector('canvas').addEventListener('click', (e) =>
+        {
+            const canvasPos = canvas.getBoundingClientRect()
+            const mousePos = {x: e.clientX - canvasPos.left, y: e.clientY - canvasPos.top}
+            const norm = Math.sqrt(Math.pow((mousePos.x - pos.x), 2) + Math.pow((mousePos.y - pos.y), 2))
+            sendBall((mousePos.x - pos.x) / norm * 3, (mousePos.y - pos.y) / norm * 3)
+        })
 
     </script>
 </body>
