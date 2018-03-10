@@ -33,9 +33,9 @@
             }
         }
 
-        const sendBall = (id, x, y) =>
+        const sendBall = (x, y) =>
         {
-            socket.emit('sendBall', {id, x, y});
+            socket.emit('sendBall', {x: x, y: y});
         }
 
     </script>
