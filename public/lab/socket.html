@@ -8,6 +8,8 @@
 </head>
 <body>
     <canvas width="500" height="500"></canvas>
+    <audio class="sound-0-0"><source src="sounds/0-0.mp3" type="audio/mpeg"></audio>
+    <audio class="sound-0-1"><source src="sounds/0-1.mp3" type="audio/mpeg"></audio>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script>
         const socket = io()
@@ -75,6 +77,9 @@
                 if(player.id === playerId)
                 {
                     console.log(player.id, player.name, player.musicInfo)
+                    const sound = document.querySelector(`audio.sound-${player.musicInfo.instrument}-${player.musicInfo.note}`)
+                    sound.currentTime = 0
+                    sound.play()
                     break
                 }
             }
