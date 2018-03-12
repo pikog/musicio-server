@@ -12,7 +12,7 @@ if (devTools != 0) {
   devTools = true
 }
 let room = window.prompt("Room name ?")
-if (room = "") {
+if (room == "") {
   room = "1"
 }
 const name = window.prompt("Player name ?")
