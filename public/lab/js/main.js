@@ -7,10 +7,6 @@ let ssao = parseInt(window.prompt("Turn on ambient ? 0/1"))
 if (ssao != 1) {
   ssao = false
 }
-let devTools = parseInt(window.prompt("Devtools ? 0/1"))
-if (devTools != 0) {
-  devTools = true
-}
 let room = window.prompt("Room name ?")
 if (room == "") {
   room = "1"
@@ -49,9 +45,7 @@ const game = new MusicIO({
 // Update pos
 socket.on('updatePlayer', (players) => {
   game.socketUpdate(players)
-  if (devTools) {
-    drawPlayers(players)
-  }
+  drawPlayers(players)
 })
 
 /* socket.on('aPlayerPlaySound', (player) => {
