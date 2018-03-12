@@ -12,7 +12,7 @@
     <audio class="sound-0-1"><source src="sounds/0-1.mp3" type="audio/mpeg"></audio>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script>
-        const socket = io()
+        const socket = io('http://localhost:8080')
         socket.on('updatePlayer', (players) => {
             drawPlayers(players)
         })
@@ -84,6 +84,8 @@
                 }
             }
         }
+
+        console.log(socket.id)
 
     </script>
 </body>
