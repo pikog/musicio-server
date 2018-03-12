@@ -11,7 +11,10 @@ let devTools = parseInt(window.prompt("Devtools ? 0/1"))
 if (devTools != 0) {
   devTools = true
 }
-const room = window.prompt("Room name ?")
+let room = window.prompt("Room name ?")
+if (room = "") {
+  room = "1"
+}
 const name = window.prompt("Player name ?")
 /* const fxaa = false
 const ssao = false
