@@ -13,8 +13,8 @@
 <body>
     <canvas width="500" height="500"></canvas>
     <canvas class="musicIO">Your browser doesn't support canvas D:</canvas>
-    <audio class="sound-0-0"><source src="sounds/0-0.mp3" type="audio/mpeg"></audio>
-    <audio class="sound-0-1"><source src="sounds/0-1.mp3" type="audio/mpeg"></audio>
+    <audio class="sound-0-0"><source src="sounds/cello/1_cello_1.wav" type="audio/mpeg"></audio>
+    <audio class="sound-0-1"><source src="sounds/cello/1_cello_2.wav" type="audio/mpeg"></audio>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script>
         let playersList = null
@@ -88,6 +88,7 @@
         }
     </script>
     <!--build:js js/global.js -->
+    <script type="text/javascript" src="js/pizzicato.min.js"></script>
     <script type="text/javascript" src="js/three.min.js"></script>
     <script type="text/javascript" src="js/postprocessing/EffectComposer.js"></script>
     <script type="text/javascript" src="js/shaders/CopyShader.js"></script>
@@ -98,6 +99,7 @@
     <script type="text/javascript" src="js/shaders/SSAOShader.js"></script>
     <script type="text/javascript" src="js/shaders/DigitalGlitch.js"></script>
     <script type="text/javascript" src="js/shaders/FXAAShader.js"></script>
+    <script type="text/javascript" src="js/MusicIOorchestor.js"></script>
     <script type="text/javascript" src="js/MusicIOotherPlayer.js"></script>
     <script type="text/javascript" src="js/MusicIOplayer.js"></script>
     <script type="text/javascript" src="js/MusicIOterrain.js"></script>

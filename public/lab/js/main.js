@@ -18,7 +18,7 @@ if (false) {
 } else {
   fxaa = false
   ssao = false
-  room = 'a0ddddhsd0'
+  room = 'a0ddddqhsd0'
   name = Math.floor(Math.random() * 1000)
   //const name= `${Date.now()}${Math.floor(Math.random() * Date.now())}`
 }
@@ -47,12 +47,11 @@ const game = new MusicIO({
 
 
 // Update pos
-socket.on('updatePlayer', (players) => {
+socket.on("updatePlayer", (players) => {
   game.socketUpdate(players)
   drawPlayers(players)
 })
 
-socket.on('aPlayerPlaySound', (player) => {
-  console.log(player)
-    aPlayerPlaySound(player)
+socket.on("aPlayerPlaySound", (player) => {
+  game.updateSound(player)
 })
