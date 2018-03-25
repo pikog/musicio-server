@@ -24,15 +24,11 @@ if (false) {
 }
 
 const rngColorGen = () => {
-  let s = "0x"
-  const c = "0123456789ABCDEF"
-  for (let i = 0; i < 6; i++) {
-    s += c.charAt(Math.floor(Math.random() * c.length))
-  }
-  return parseInt(s)
+  return new THREE.Color(`hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`)
 }
 
 const rngColor = rngColorGen()
+console.log(rngColor)
 
 // Init socket
 const socket = io()

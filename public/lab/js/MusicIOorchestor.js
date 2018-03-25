@@ -152,28 +152,7 @@ class MusicIOorchestor {
       2, 1, 0, 2
     ]
 
-    /* this._binding = {
-      a : "cello",
-      z : "cello",
-      e : "cello",
-      r : "cello",
-      q : "clarinet",
-      s : "clarinet",
-      d : "clarinet",
-      f : "clarinet",
-      w : "harp",
-      x : "harp",
-      c : "harp",
-      v : "harp",
-      u : "string",
-      i : "string",
-      o : "string",
-      p : "string",
-      j : "string2",
-      k : "string2",
-      l : "string2",
-      m : "string2",
-    } */
+    this._canLoop = false
 
     this.loadSound()
   }
@@ -219,7 +198,7 @@ class MusicIOorchestor {
       //this._oldPlaying[this._playerInstr][e.key] = false
     })
 
-    this.loop()
+    this._canLoop = true
   }
 
   addSound (instr, note) {
@@ -227,50 +206,50 @@ class MusicIOorchestor {
   }
 
   loop () {
-    window.requestAnimationFrame(this.loop.bind(this))
-
-    // Each movInterval of time
-    if (Math.floor(Date.now() / this._movInterval) != Math.floor(this._lastTime / this._movInterval)) {
-      this._structureIndex++
-      this._structureIndex %= this._structure.length
-    }
-
-    // Each playInterval of time
-    if (Math.floor(Date.now() / this._playInterval) != Math.floor(this._lastTime / this._playInterval)) {
-      // Copy and reset playing object
-      const playing = {...this._playing}
-      this._playing = {
-        cello : {},
-        clarinet : {},
-        harp : {},
-        string : {},
-        string2 : {}
+    if (this._canLoop) {
+      // Each movInterval of time
+      if (Math.floor(Date.now() / this._movInterval) != Math.floor(this._lastTime / this._movInterval)) {
+        this._structureIndex++
+        this._structureIndex %= this._structure.length
       }
-
-      // Building sound group
-      for (const instr in this._playing) {
-        for (const key of this._binding) {
-          if (playing[instr][key]) {
-            this._sounds[this._structure[this._structureIndex]][instr][key].stop()
-            //this._sounds[this._structure[this._structureIndex]][instr][key].clone().play()
-            this._toPlay.addSound(this._sounds[this._structure[this._structureIndex]][instr][key])
+  
+      // Each playInterval of time
+      if (Math.floor(Date.now() / this._playInterval) != Math.floor(this._lastTime / this._playInterval)) {
+        // Copy and reset playing object
+        const playing = {...this._playing}
+        this._playing = {
+          cello : {},
+          clarinet : {},
+          harp : {},
+          string : {},
+          string2 : {}
+        }
+  
+        // Building sound group
+        for (const instr in this._playing) {
+          for (const key of this._binding) {
+            if (playing[instr][key]) {
+              this._sounds[this._structure[this._structureIndex]][instr][key].stop()
+              //this._sounds[this._structure[this._structureIndex]][instr][key].clone().play()
+              this._toPlay.addSound(this._sounds[this._structure[this._structureIndex]][instr][key])
+            }
+          }
+        }
+  
+        // Playing sound group
+        this._toPlay.play()
+  
+        // Unbuilding sound group
+        for (const instr in this._playing) {
+          for (const key of this._binding) {
+            if (playing[instr][key]) {
+              this._toPlay.removeSound(this._sounds[this._structure[this._structureIndex]][instr][key])
+            }
           }
         }
       }
-
-      // Playing sound group
-      this._toPlay.play()
-
-      // Unbuilding sound group
-      for (const instr in this._playing) {
-        for (const key of this._binding) {
-          if (playing[instr][key]) {
-            this._toPlay.removeSound(this._sounds[this._structure[this._structureIndex]][instr][key])
-          }
-        }
-      }
+  
+      this._lastTime = Date.now()
     }
-
-    this._lastTime = Date.now()
   }
 }

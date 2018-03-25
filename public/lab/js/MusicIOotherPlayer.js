@@ -40,10 +40,8 @@ class MusicIOotherPlayer {
 
 
     // Global material
-    const material =  new THREE.MeshStandardMaterial({
+    const material =  new THREE.MeshPhongMaterial({
       color: this._player.color,
-      metalness: 0.3,
-      roughness: 0,
       flatShading: true
     })
 
