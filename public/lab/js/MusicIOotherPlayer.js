@@ -10,7 +10,6 @@ class MusicIOotherPlayer {
     // Global var
     this._ctx = ctx
     this._player = player
-    console.log(player)
     // Player pos
     this._pos = player.position
     // Player model
@@ -19,7 +18,6 @@ class MusicIOotherPlayer {
 
     // Init player
     this.init()
-    console.log("new player")
   }
 
   /**

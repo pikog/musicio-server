@@ -1,22 +1,27 @@
 // Init
-let fxaa = parseInt(window.prompt("Turn on anti-alliasing ? 0/1"))
-if (fxaa != 1) {
+let fxaa, ssao, room, name
+
+if (false) {
+  fxaa = parseInt(window.prompt("Turn on anti-alliasing ? 0/1"))
+  if (fxaa != 1) {
+    fxaa = false
+  }
+  ssao = parseInt(window.prompt("Turn on ambient ? 0/1"))
+  if (ssao != 1) {
+    ssao = false
+  }
+  room = window.prompt("Room name ?")
+  if (room == "") {
+    room = "1"
+  }
+  name = window.prompt("Player name ?")
+} else {
   fxaa = false
-}
-let ssao = parseInt(window.prompt("Turn on ambient ? 0/1"))
-if (ssao != 1) {
   ssao = false
+  room = 'a0ddddhsd0'
+  name = Math.floor(Math.random() * 1000)
+  //const name= `${Date.now()}${Math.floor(Math.random() * Date.now())}`
 }
-let room = window.prompt("Room name ?")
-if (room == "") {
-  room = "1"
-}
-const name = window.prompt("Player name ?")
-/* const fxaa = false
-const ssao = false
-const room = 999
-const name = Math.floor(Math.random() * 1000) */
-//const name= `${Date.now()}${Math.floor(Math.random() * Date.now())}`
 
 const rngColorGen = () => {
   let s = "0x"
@@ -28,7 +33,6 @@ const rngColorGen = () => {
 }
 
 const rngColor = rngColorGen()
-console.log(rngColor)
 
 // Init socket
 const socket = io()
@@ -48,6 +52,7 @@ socket.on('updatePlayer', (players) => {
   drawPlayers(players)
 })
 
-/* socket.on('aPlayerPlaySound', (player) => {
+socket.on('aPlayerPlaySound', (player) => {
+  console.log(player)
     aPlayerPlaySound(player)
-}) */
+})
