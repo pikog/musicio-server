@@ -113,9 +113,10 @@ class MusicIO {
     for (let i = 0; i < this._otherPlayers.length; i++) {
       let dead = true
       // For dead one
-      for (let i = 0; i < players.length; i++) {
-        if (players[i].id && this._otherPlayers[i].id && players[i].id == this._otherPlayers[i].id) {
+      for (let j = 0; j < players.length; j++) {
+        if (players[j].id && this._otherPlayers[i].id && players[j].id == this._otherPlayers[i].id) {
           dead = false
+          break
         }
       }
       // If dead then die and delete from array
@@ -128,24 +129,24 @@ class MusicIO {
     for (let i = 0; i < players.length; i++) {
       let found = false
       // For the same one in otherPlayers
-      for (let i = 0; i < this._otherPlayers.length; i++) {
+      for (let j = 0; j < this._otherPlayers.length; j++) {
         // If found, then update
-        if (this._otherPlayers[i].id = players[i].id) {
-          this._otherPlayers[i].position = players[i].position
-          this._otherPlayers[i].render.update(this._otherPlayers[i].position)
+        if (this._otherPlayers[j].id == players[i].id) {
+          this._otherPlayers[j].position = players[i].position
+          this._otherPlayers[j].render.update(this._otherPlayers[j].position)
           found = true
           break
         }
       }
 
+      
       // If not, then create it
       if (!found) {
         this._otherPlayers.push(players[i])
         this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOotherPlayer({
           ctx: this._ctx,
           player: players[i]
-        }
-        )
+        })
       }
     }
   }
