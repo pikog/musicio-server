@@ -75,10 +75,8 @@ class MusicIOplayer {
 
 
     // Global material
-    const material =  new THREE.MeshStandardMaterial({
+    const material = new THREE.MeshPhongMaterial({
       color: this._ctx.color,
-      metalness: 0.3,
-      roughness: 0,
       flatShading: true
     })
 
@@ -89,6 +87,7 @@ class MusicIOplayer {
     )
     // Add body to player container
     this._parts.body = body
+    this._parts.body.rotation.x = 25
     this._mesh.add(this._parts.body)
   }
 
@@ -111,10 +110,10 @@ class MusicIOplayer {
       canvas: this._ctx.$canvas,
       antialias: false
     })
-    this._renderer.setClearColor(0x6CF6FF)
+    this._renderer.setClearColor(new THREE.Color("hsl(25, 25%, 50%)"))
     this._renderer.setPixelRatio(window.devicePixelRatio)
     this._renderer.setSize(this._screen.w, this._screen.h)
-    this._renderer.shadowMap.enabled = true
+    this._renderer.shadowMap.enabled = false
   }
 
   // Init the postprocessing
@@ -149,9 +148,9 @@ class MusicIOplayer {
    * Update everything
    */
   update (player) {
+    // Define player position
     this._pos.x = player.position.x - this._ctx.terrain.w / 2
     this._pos.y = player.position.y - this._ctx.terrain.h / 2
-    //console.log(player.position.x, player.position.y)
 
     // Update player position
     this._mesh.position.x = this._pos.x
@@ -164,33 +163,14 @@ class MusicIOplayer {
     // Force camera to lookAt player
     this._camera.lookAt(this._mesh.position)
 
-    
     // Render the scene
     this._composer.render()
-    //this._renderer.render(this._ctx.scene, this._camera) // => Old way to render
   }
 
   // Send updated mouse angle on move
   updateAngle() {
     // If mouse enough far away from center
     if (Math.abs(this._mouse.x) > 0.1 || Math.abs(this._mouse.y) > 0.1) {
-      /* const angle = Math.atan2(this._mouse.y, this._mouse.x)
-      // If can increment in x axis
-      if (
-        (this._mouse.x > 0 && this._pos.x < this._ctx.terrain.w / 2 - 5) ||
-        (this._mouse.x < 0 && this._pos.x > -this._ctx.terrain.w / 2 + 5)
-      ) {
-        this._pos.x += Math.cos(angle) * this._speed
-      }
-
-      // If can increment in y axis
-      if (
-        (this._mouse.y < 0 && this._pos.y < this._ctx.terrain.h / 2 - 5) ||
-        (this._mouse.y > 0 && this._pos.y > -this._ctx.terrain.h / 2 + 5)
-      ) {
-        this._pos.y -= Math.sin(angle) * this._speed
-      } */
-
       const norm = Math.sqrt(Math.pow((this._mouse.x), 2) + Math.pow((this._mouse.y), 2))
       socket.emit('move', {x: this._mouse.x / norm * this._speed, y: -this._mouse.y / norm * this._speed})
       //console.log(this._mouse.x / norm * 3, this._mouse.y / norm * 3)
@@ -214,6 +194,6 @@ class MusicIOplayer {
     // Update renderer
     this._renderer.setSize(this._screen.w, this._screen.h)
 
-    this.initPostprocessing()
+    this.initPostprocessing(this._ctx.pp.fxaa, this._ctx.pp.ssao)
   }
 }

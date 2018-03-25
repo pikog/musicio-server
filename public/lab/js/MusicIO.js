@@ -12,8 +12,8 @@ class MusicIO {
     tileHeight = 50,
     tileWnum = 10,
     tileHnum = 10,
-    fxaa = true,
-    ssao = true,
+    fxaa = false,
+    ssao = false,
     color = 0xFFFFFF
   } = {}) {
 
@@ -80,7 +80,7 @@ class MusicIO {
     this._ctx.scene.add(this._lights.ambient)
 
     const sun = new THREE.DirectionalLight(0xffffff, 1)
-    sun.castShadow = true
+    /* sun.castShadow = false
     sun.shadow.camera.top = this._ctx.terrain.h
     sun.shadow.camera.right = this._ctx.terrain.w
     sun.shadow.camera.bottom = -this._ctx.terrain.h
@@ -88,7 +88,7 @@ class MusicIO {
     sun.shadow.camera.near = this._ctx.terrain.w + this._ctx.terrain.h
     sun.shadow.camera.far = (this._ctx.terrain.w + this._ctx.terrain.h) / 2 * 5
     sun.shadow.mapSize.width = 4096
-    sun.shadow.mapSize.height = 4096
+    sun.shadow.mapSize.height = 4096 */
     sun.position.x = this._ctx.terrain.w * 2
     sun.position.y = this._ctx.terrain.h * 2
     sun.position.z = (this._ctx.terrain.w + this._ctx.terrain.h) / 2
@@ -101,7 +101,9 @@ class MusicIO {
    */
   globalUpdate (players) {
     window.requestAnimationFrame(this.globalUpdate.bind(this))
+    this._terrain.updateNoise()
     this._player.updateAngle()
+    this._orchestor.loop()
   }
 
   socketUpdate (players) {
