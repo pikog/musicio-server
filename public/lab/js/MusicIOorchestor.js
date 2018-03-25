@@ -209,7 +209,7 @@ class MusicIOorchestor {
 
     document.addEventListener("keydown", (e) => {
       if (this._binding.indexOf(e.key) + 1) {
-        this._playing[this._playerInstr]["e.key"] = true
+        this.addSound(this._playerInstr, e.key)
         socket.emit("setNote", this._playerInstr, e.key)
         socket.emit("playSound")
       }
