@@ -63,6 +63,8 @@ class MusicIO {
       }
     })
 
+    this._orchestor = new MusicIOorchestor()
+
     this._otherPlayers = []
     
     // Init main lighting
@@ -133,6 +135,7 @@ class MusicIO {
         // If found, then update
         if (this._otherPlayers[j].id == players[i].id) {
           this._otherPlayers[j].position = players[i].position
+          this._otherPlayers[j].musicInfo = players[i].musicInfo
           this._otherPlayers[j].render.update(this._otherPlayers[j].position)
           found = true
           break
@@ -147,6 +150,15 @@ class MusicIO {
           ctx: this._ctx,
           player: players[i]
         })
+      }
+    }
+  }
+
+  updateSound (playerId) {
+    for (const player of this._otherPlayers) {
+      if (player.id == playerId) {
+        this._orchestor.addSound(player.musicInfo.instrument, player.musicInfo.note)
+        break
       }
     }
   }
