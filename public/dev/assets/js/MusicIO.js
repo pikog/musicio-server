@@ -47,7 +47,7 @@ class MusicIO {
     this._loaded = false
 
     // Socket
-    this._socket = io('http://localhost:8080')
+    this._socket = io()
 
     // General DOM
     this._$output = this._$output
