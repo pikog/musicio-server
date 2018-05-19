@@ -1,46 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Main - edhbr</title>
-    <!--build:css css/styles.min.css-->
-    <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/main.css" />
-    <!--endbuild-->
+    <title>Music.io test page</title>
 </head>
 <body>
     <canvas width="500" height="500"></canvas>
-    <canvas class="musicIO">Your browser doesn't support canvas D:</canvas>
-    <audio class="sound-0-0"><source src="sounds/cello/1_cello_1.wav" type="audio/mpeg"></audio>
-    <audio class="sound-0-1"><source src="sounds/cello/1_cello_2.wav" type="audio/mpeg"></audio>
+    <audio class="sound-0-0"><source src="sounds/0-0.mp3" type="audio/mpeg"></audio>
+    <audio class="sound-0-1"><source src="sounds/0-1.mp3" type="audio/mpeg"></audio>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script>
+        const socket = io('http://localhost:8080')
+        socket.on('updatePlayer', (players) => {
+            drawPlayers(players)
+        })
+        socket.on('aPlayerPlaySound', (player) => {
+            aPlayerPlaySound(player)
+        })
         let playersList = null
-
         const pos = {x: 50, y: 50}
-
         const canvas = document.querySelector('canvas')
         const ctx = canvas.getContext('2d')
         ctx.fillStyle = '#000000'
         ctx.fillRect(0, 0, 500, 500)
-
-        let toto = 1
-
         const drawPlayers = (players) =>
         {
             playersList = players
-
-            if (toto) {
-                toto--
-            }
             ctx.fillStyle = '#000000'
             ctx.fillRect(0, 0, 500, 500)
             for(const player of players)
             {
-                ctx.strokeStyle = "#ffffff"
-                ctx.fillStyle = "#ffffff"
+                ctx.strokeStyle = player.color
+                ctx.fillStyle = player.color
                 ctx.fillRect(player.position.x, player.position.y, 1, 1)
                 ctx.beginPath()
                 ctx.arc(player.position.x, player.position.y, 10, 0, Math.PI*2, true)
@@ -52,10 +45,9 @@
                 ctx.font = "10px Arial";
                 ctx.fillText(player.name, player.position.x, player.position.y)
             }
-            pos.x = players[0] ? players[0].position.x : 50
-            pos.y = players[0] ? players[0].position.y : 50
+            pos.x = players[0].position.x
+            pos.y = players[0].position.y
         }
-
         document.querySelector('canvas').addEventListener('click', (e) =>
         {
             const canvasPos = canvas.getBoundingClientRect()
@@ -63,7 +55,6 @@
             const norm = Math.sqrt(Math.pow((mousePos.x - pos.x), 2) + Math.pow((mousePos.y - pos.y), 2))
             socket.emit('move', {x: (mousePos.x - pos.x) / norm * 3, y: (mousePos.y - pos.y) / norm * 3})
         })
-
         document.addEventListener('keydown', (e) =>
         {
             if(e.code === "Space")
@@ -71,7 +62,6 @@
                 socket.emit('playSound')
             }
         })
-
         const aPlayerPlaySound = (playerId) =>
         {
             for(const player of playersList)
@@ -86,25 +76,7 @@
                 }
             }
         }
+        console.log(socket.id)
     </script>
-    <!--build:js js/global.js -->
-    <script type="text/javascript" src="js/pizzicato.min.js"></script>
-    <script type="text/javascript" src="js/three.min.js"></script>
-    <script type="text/javascript" src="js/postprocessing/EffectComposer.js"></script>
-    <script type="text/javascript" src="js/shaders/CopyShader.js"></script>
-    <script type="text/javascript" src="js/postprocessing/RenderPass.js"></script>
-    <script type="text/javascript" src="js/postprocessing/ShaderPass.js"></script>
-    <script type="text/javascript" src="js/postprocessing/GlitchPass.js"></script>
-    <script type="text/javascript" src="js/postprocessing/SSAOPass.js"></script>
-    <script type="text/javascript" src="js/shaders/SSAOShader.js"></script>
-    <script type="text/javascript" src="js/shaders/DigitalGlitch.js"></script>
-    <script type="text/javascript" src="js/shaders/FXAAShader.js"></script>
-    <script type="text/javascript" src="js/MusicIOorchestor.js"></script>
-    <script type="text/javascript" src="js/MusicIOotherPlayer.js"></script>
-    <script type="text/javascript" src="js/MusicIOplayer.js"></script>
-    <script type="text/javascript" src="js/MusicIOterrain.js"></script>
-    <script type="text/javascript" src="js/MusicIO.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <!-- endbuild -->
 </body>
 </html>
