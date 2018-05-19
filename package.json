@@ -12,13 +12,31 @@
     "type": "git",
     "url": "git+https://github.com/pikog/musicio-server.git"
   },
-  "author": "Pierre Grardel",
+  "author": "Pierre Grardel, Edouard Haberer",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pikog/musicio-server/issues"
   },
   "homepage": "https://github.com/pikog/musicio-server#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.24.4",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-if": "^2.0.2",
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-stylus": "^2.7.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-useref": "^3.1.5",
+    "gulp-util": "^3.0.8",
+    "run-sequence": "^2.2.1"
+  },
   "dependencies": {
+    "npm": "^6.0.1",
     "chalk": "^2.3.2",
     "express": "^4.16.2",
     "hbs": "^4.0.1",
