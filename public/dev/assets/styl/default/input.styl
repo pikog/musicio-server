@@ -1,17 +1,16 @@
 // Default input style
 
-form
-  display flex
-  flex-flow column nowrap
-
 input, label
   height auto !important
-  padding 5px
+  padding 5px 15px
+  cursor pointer
+  border-radius 2px
 
 input
   background color-white-light
+  color color-purple
 
-div.inputWrapper 
+div.inputWrapper
   font-size 0
 
 label.hiddenRadio
@@ -19,5 +18,5 @@ label.hiddenRadio
   font-size font-normal
 
 input[type="radio"]:checked + label.hiddenRadio
-  background color-blue-light
+  background color-purple
   color color-white-lighter

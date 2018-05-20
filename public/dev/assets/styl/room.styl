@@ -34,7 +34,7 @@
       z-index 15
       animation skewIn 1s ease both
       will-change transform
-      background linear-gradient(to right, #5058c4, #a282db)
+      background linear-gradient(to right, color-purple, color-purple-light)
 
     .container
       z-index 20
@@ -53,9 +53,13 @@
         font-weight 700
         margin-bottom 25px
 
-      .join
+      p, .join
         will-change transform, opacity
         animation shiftIn 1s ease 1s both
+
+      .join
+        margin-top 25px
+        text-align center
 
 @keyframes skewIn {
   0%  { transform: translate(-50%, -50%) scale(1, 0) skewY(0deg); }
