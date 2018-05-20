@@ -6,12 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Main - edhbr</title>
   <!--build:css assets/css/styles.min.css-->
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:200,400,700" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/reset.css" />
   <link rel="stylesheet" href="assets/css/main.css" />
   <!--endbuild-->
 </head>
 <body>
-  <div class="musicIOApp">
+  <div class="musicIOApp noselect">
+    <div class="home">
+      <div class="container">
+        <h1>Music.io</h1>
+        <p>Muzik.io is an interactive musical experience.</p>
+        <p>You are strongly recommended to play with headphones.</p>
+        <div class="join">
+          <input type="text" name="pseudo" placeholder="pseudo" autofocus>
+          <input type="radio" name="option" id="auto" hidden checked>
+          <label for="auto" class="hiddenRadio">Auto</label>
+          <input type="radio" name="option" id="custom" hidden>
+          <label for="custom" class="hiddenRadio">Custom</label>
+          <button>Join</button>
+        </div>
+      </div>
+    </div>
     <canvas>Your browser doesn't support canvas D:</canvas>
   </div>
   <!-- /.musicIOApp -->

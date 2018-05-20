@@ -5,9 +5,73 @@
   width 100vw
   height 100vh
 
-  canvas
+  .home, canvas
     position absolute
     top 0
     left 0
     width inherit
     height inherit
+
+  canvas
+    z-index 5
+
+  .home
+    z-index 10
+    display flex
+    align-items center
+    justify-content center
+    background url("../img/bg.png")
+    background-size cover
+
+    &:before
+      content ""
+      height 400px
+      width 100vw
+      position absolute
+      top 50%
+      left 50%
+      transform translate(-50%, -50%) skewY(-25deg)
+      z-index 15
+      animation skewIn 1s ease both
+      will-change transform
+      background linear-gradient(to right, color-purple, color-purple-light)
+
+    .container
+      z-index 20
+      width 720px
+      padding 25px 25px 50px 25px
+      background alpha(color-white, .1)
+      border-radius 10px
+      box-shadow 1px 1px 5px alpha(color-black, .8)
+      animation fadeIn 1s ease both
+      will-change transform, opacity
+
+      h1
+        animation shiftIn 1s ease .5s both
+        will-change transform, opacity
+        font-size font-giant
+        font-weight 700
+        margin-bottom 25px
+
+      p, .join
+        will-change transform, opacity
+        animation shiftIn 1s ease 1s both
+
+      .join
+        margin-top 25px
+        text-align center
+
+@keyframes skewIn {
+  0%  { transform: translate(-50%, -50%) scale(1, 0) skewY(0deg); }
+  50% { transform: translate(-50%, -50%) scale(1, 1) skewY(0deg); }
+}
+
+@keyframes fadeIn {
+  0%  { transform: scale(1, 0); opacity: 0; }
+  50% { transform: scale(1, 1); opacity: 0; }
+}
+
+@keyframes shiftIn {
+  0%  { transform: translateY(100%); opacity: 0; }
+  25% { transform: translateY(75%); opacity: 0; }
+}

@@ -36,7 +36,7 @@ class MusicIO {
 
   // Load ressources before game start
   load () {
-    // Load sounds
+
   }
 
   // Create default context
