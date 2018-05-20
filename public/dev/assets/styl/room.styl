@@ -47,17 +47,17 @@
       will-change transform, opacity
 
       h1
-        animation shiftIn 1s ease .5s both
+        animation shiftIn .5s ease .5s both
         will-change transform, opacity
         font-size font-giant
         font-weight 700
         margin-bottom 25px
 
-      p, .join
-        will-change transform, opacity
-        animation shiftIn 1s ease 1s both
+      p, .joinForm
+        will-change transform
+        animation shiftIn .5s ease 1s both
 
-      .join
+      .joinForm
         margin-top 25px
         text-align center
 
@@ -72,6 +72,5 @@
 }
 
 @keyframes shiftIn {
-  0%  { transform: translateY(100%); opacity: 0; }
-  25% { transform: translateY(75%); opacity: 0; }
+  0%  { transform: translateY(50%); opacity: 0; }
 }

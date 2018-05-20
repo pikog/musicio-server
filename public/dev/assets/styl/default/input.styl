@@ -1,8 +1,6 @@
-// Default input style
-
-input, label
+input, label, button
   height auto !important
-  padding 5px 15px
+  padding 10px 10px
   cursor pointer
   border-radius 2px
 
@@ -11,11 +9,18 @@ input
   color color-purple
 
 div.inputWrapper
-  font-size 0
+  margin 5px 0
 
 label.hiddenRadio
   display inline-block
   font-size font-normal
+  transition background ease .3s
+
+label.hiddenRadio:hover
+  background alpha(color-purple, .4)
+
+label.hiddenRadio:active
+  background alpha(color-purple, .7)
 
 input[type="radio"]:checked + label.hiddenRadio
   background color-purple
