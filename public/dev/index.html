@@ -18,13 +18,23 @@
         <h1>Music.io</h1>
         <p>Muzik.io is an interactive musical experience.</p>
         <p>You are strongly recommended to play with headphones.</p>
-        <div class="join">
-          <input type="text" name="pseudo" placeholder="pseudo" autofocus>
-          <input type="radio" name="option" id="auto" hidden checked>
-          <label for="auto" class="hiddenRadio">Auto</label>
-          <input type="radio" name="option" id="custom" hidden>
-          <label for="custom" class="hiddenRadio">Custom</label>
-          <button>Join</button>
+        <div class="joinForm">
+          <div class="inputWrapper">
+            <input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" autofocus>
+          </div>
+          <div class="inputWrapper">
+            Matchmaking:
+            <input type="radio" name="option" id="auto" hidden checked>
+            <label for="auto" class="hiddenRadio">Auto</label>
+            <input type="radio" name="option" id="custom" hidden>
+            <label for="custom" class="hiddenRadio">Manual</label>
+          </div>
+          <div class="inputWrapper optional">
+              <input type="text" id="room" name="room" placeholder="Enter a room name">
+            </div>
+          <div class="inputWrapper">
+            <button class="join">Join</button>
+          </div>
         </div>
       </div>
     </div>
