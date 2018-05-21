@@ -47,7 +47,9 @@ class MusicIO {
       manual: this._$output.querySelector(".joinForm #manual"),
       optional: this._$output.querySelector(".joinForm .optional"),
       pseudo: this._$output.querySelector(".joinForm #pseudo"),
-      room: this._$output.querySelector(".joinForm #room")
+      room: this._$output.querySelector(".joinForm #room"),
+      hud: this._$output.querySelector(".hud"),
+      energyPool: this._$output.querySelector(".hud .energyPool")
     }
 
     // Global
@@ -108,8 +110,13 @@ class MusicIO {
       "string2"
     ]
     this._playerInstr = this._instr[Math.floor(Math.random() * this._instr.length)] // Define player instrument
+    this._playerPlayed = false
     this._orchestor = new Orchestor(this, 4000, 200) // movInterval, playInterval
 
+    // Energies node
+    this._energies = new MusicIOEnergies(this, 0.001) // density
+
+    // Form
     this._joinData = {
       room: Math.floor(Math.random() * 5 + 1),
       pseudo: `John Doe ${Date.now() % 10000}`
@@ -194,13 +201,7 @@ class MusicIO {
     // Key info
     document.addEventListener("keydown", (e) => {
       this._input[e.key] = true
-      for (let i = 0; i < this._binding.length; i++) {
-        if (this._binding.charAt(i) === e.key) {
-          this._orchestor.addSound(this._playerInstr, i)
-          this._socket.emit("playNote", i)
-          break
-        }
-      }
+      this.playNote(e.key)
     })
     document.addEventListener("keyup", (e) => { this._input[e.key] = false })
 
@@ -222,6 +223,20 @@ class MusicIO {
     this._socket.on("aPlayerPlayNote", (data) => {
       this.updateSound(data)
     })
+  }
+
+  // When user play a note
+  playNote (key) {
+    for (let i = 0; i < this._binding.length; i++) {
+      if (this._binding.charAt(i) === key) {
+        if (this._player._energyPool > 0) {
+          this._playerPlayed = true
+          this._orchestor.addSound(this._playerInstr, i)
+          this._socket.emit("playNote", i)
+        }
+        break
+      }
+    }
   }
 
   // Update all players
@@ -295,6 +310,7 @@ class MusicIO {
     this._composer.render()
     this._orchestor.loop()
     this._player.update()
+    this._energies.checkCollision()
     this._stats.update() // Stats
   }
 }
