@@ -5,7 +5,7 @@
   width 100vw
   height 100vh
 
-  .home, canvas
+  .home, .hud, canvas
     position absolute
     top 0
     left 0
@@ -161,6 +161,16 @@
 
       &:hover
         opacity 1
+
+  .hud
+    z-index 6
+
+    .energyPool
+      position absolute
+      left 50%
+      bottom 20px
+      transform translate(-50%, 0)
+
 
 @keyframes skewIn {
   0%  { transform: translate(-50%, -50%) scale(1, 0) skewY(0deg); }

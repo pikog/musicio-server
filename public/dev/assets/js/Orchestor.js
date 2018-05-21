@@ -205,6 +205,10 @@ class Orchestor {
   // Play current sounds that need to be played at each define timeinterval
   playGroup () {
     if (Math.floor(this._now / this._playInterval) != Math.floor(this._lastTime / this._playInterval)) {
+      if (this._ctx._playerPlayed) {
+        this._ctx._player._energyPool--
+        this._ctx._playerPlayed = false
+      }
       // Copy and reset playing object
       const playing = {...this._playing}
       //console.log(this._playing)

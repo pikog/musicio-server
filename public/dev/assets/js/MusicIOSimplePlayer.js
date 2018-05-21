@@ -2,11 +2,13 @@
  * Music IO simple player class
  */
 class MusicIOSimplePlayer {
-  constructor (ctx, color = ffffff) {
+  constructor (ctx, color = ffffff, radius = 10) {
     this._ctx = ctx
     this._color = new THREE.Color(color)
 
     this._holder = new THREE.Object3D()
+
+    this._radius = radius
 
     // Position holder
     this._pos = {x: 0, y: 0, z: 0}
@@ -17,7 +19,7 @@ class MusicIOSimplePlayer {
 
   // Create player mesh
   createPlayer () {
-    const geometry = new THREE.SphereGeometry(10, Math.floor(Math.random() * 3 + 7), Math.floor(Math.random() * 3 + 7))
+    const geometry = new THREE.SphereBufferGeometry(this._radius, Math.floor(Math.random() * 3 + 7), Math.floor(Math.random() * 3 + 7))
     const material = new THREE.MeshStandardMaterial({
       color: this._color,
       flatShading: true,
