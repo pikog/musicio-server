@@ -13,30 +13,33 @@
 </head>
 <body>
   <div class="musicIOApp noselect">
-    <div class="home">
+    <div class="home active">
       <div class="container">
         <h1>Music.io</h1>
-        <p>Muzik.io is an interactive musical experience.</p>
+        <p>Music.io is an interactive musical experience.</p>
         <p>You are strongly recommended to play with headphones.</p>
         <div class="joinForm">
-          <div class="inputWrapper">
-            <input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" autofocus>
+          <div class="inputWrapper placeholder pseudo">
+            <input type="text" id="pseudo" name="pseudo" placeholder="edhbr" autofocus>
           </div>
           <div class="inputWrapper">
             Matchmaking:
             <input type="radio" name="option" id="auto" hidden checked>
             <label for="auto" class="hiddenRadio">Auto</label>
-            <input type="radio" name="option" id="custom" hidden>
-            <label for="custom" class="hiddenRadio">Manual</label>
+            <input type="radio" name="option" id="manual" hidden>
+            <label for="manual" class="hiddenRadio">Manual</label>
           </div>
-          <div class="inputWrapper optional">
-              <input type="text" id="room" name="room" placeholder="Enter a room name">
+          <div class="inputWrapper optional placeholder room">
+              <input type="text" id="room" name="room" placeholder="moon">
             </div>
           <div class="inputWrapper">
-            <button class="join">Join</button>
+            <button class="join"><span>Loading (00/00)</span></button>
           </div>
         </div>
       </div>
+      <a href="https://github.com/pikog/musicio-server" class="about" title="Github" target="_blank" rel="noopener">
+        <svg alt="Github"><use xlink:href="assets/img/icons.svg#github"></use></svg>
+      </a>
     </div>
     <canvas>Your browser doesn't support canvas D:</canvas>
   </div>
