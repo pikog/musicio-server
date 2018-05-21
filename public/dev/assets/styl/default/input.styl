@@ -1,20 +1,26 @@
 input, label, button
   height auto !important
-  padding 10px 10px
+  padding 10px 20px
   cursor pointer
   border-radius 2px
 
 input
-  background color-white-light
+  background alpha(color-white-light, .85)
+  transition background .3s ease
   color color-purple
 
-div.inputWrapper
-  margin 5px 0
+  &:focus, &:hover
+    background color-white-light
+
+.inputWrapper
+  margin 5px 10%
+  text-align center
+  position relative
 
 label.hiddenRadio
   display inline-block
   font-size font-normal
-  transition background ease .3s
+  transition background .3s cubic-bezier(.25,.1,.5,1.5)
 
 label.hiddenRadio:hover
   background alpha(color-purple, .4)
@@ -28,5 +34,8 @@ input[type="radio"]:checked + label.hiddenRadio
 
 .optional
   opacity 0
+  transition opacity .3s
+  will-change opacity
+
   &.active
     opacity 1
