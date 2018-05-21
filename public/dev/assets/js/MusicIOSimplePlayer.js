@@ -34,10 +34,19 @@ class MusicIOSimplePlayer {
   }
 
   // Move player
-  move (player) {
-    if (this._pos.x != player.position.x || this._pos.z != player.position.y) {
-      this._pos.x = player.position.x
-      this._pos.z = player.position.y
+  move (position, add = false) {
+    position = position.position ? position.position : position
+    if (this._pos.x != position.x || this._pos.z != position.y) {
+      if (add) {
+        this._pos.x = this._pos.x + position.x
+        this._pos.z = this._pos.z + position.y
+        this._pos.x = Math.max(Math.min(this._pos.x, this._ctx._terrain.width - this._radius), this._radius)
+        this._pos.z = Math.max(Math.min(this._pos.z, this._ctx._terrain.height - this._radius), this._radius)
+      } else {
+        this._pos.x = position.x
+        this._pos.z = position.y
+      }
+
       this._holder.position.set(this._pos.x, 0, this._pos.z)
       this._holder.position.set(this._pos.x, 0, this._pos.z)
     }

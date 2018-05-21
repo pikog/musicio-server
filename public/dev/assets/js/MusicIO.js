@@ -39,6 +39,7 @@ class MusicIO {
     this._$output = this._$output
     this._$canvas = this._$output.querySelector("canvas")
     this._$ = {
+      // Home
       home: this._$output.querySelector(".home"),
       joinForm: this._$output.querySelector(".joinForm"),
       join: this._$output.querySelector(".joinForm .join"),
@@ -48,8 +49,16 @@ class MusicIO {
       optional: this._$output.querySelector(".joinForm .optional"),
       pseudo: this._$output.querySelector(".joinForm #pseudo"),
       room: this._$output.querySelector(".joinForm #room"),
+      // HUD
       hud: this._$output.querySelector(".hud"),
-      energyPool: this._$output.querySelector(".hud .energyPool")
+      energy: this._$output.querySelector(".hud .energy"),
+      energyCap: this._$output.querySelector(".hud .energyCap"),
+      energyPoolState: this._$output.querySelector(".hud .energyPoolState"),
+      energyPool: this._$output.querySelector(".hud .energyPool"),
+      instrument: this._$output.querySelector(".hud .instrument"),
+      upgrade: this._$output.querySelector(".hud .upgrade"),
+      newInstrument: this._$output.querySelector(".hud .newInstrument"),
+      higherEnergyCap: this._$output.querySelector(".hud .higherEnergyCap")
     }
 
     // Global
@@ -102,14 +111,6 @@ class MusicIO {
 
     // Sounds
     this._binding = "azer"
-    this._instr = [ // All possible instrument
-      "cello",
-      "clarinet",
-      "harp",
-      "string",
-      "string2"
-    ]
-    this._playerInstr = this._instr[Math.floor(Math.random() * this._instr.length)] // Define player instrument
     this._playerPlayed = false
     this._orchestor = new Orchestor(this, 4000, 200) // movInterval, playInterval
 
@@ -205,16 +206,24 @@ class MusicIO {
     })
     document.addEventListener("keyup", (e) => { this._input[e.key] = false })
 
-    document.addEventListener("mouseup", () => {
-      Math.floor(Math.random() * 2) ? this._camera.set("pos", {x: 0, y: 80, z: 0}) : this._camera.set("pos", {x: 0, y: 300, z: 0})
+    this._$.newInstrument.addEventListener("mouseup", () => {
+      this._player.upgrade("instrument")
     })
+
+    this._$.higherEnergyCap.addEventListener("mouseup", () => {
+      this._player.upgrade("energy")
+    })
+
+    /* document.addEventListener("mouseup", () => {
+      Math.floor(Math.random() * 2) ? this._camera.set("pos", {x: 0, y: 80, z: 0}) : this._camera.set("pos", {x: 0, y: 300, z: 0})
+    }) */
   }
 
   // Init socket event
   initSocket () {
     this._socket.emit("join", this._joinData.room, this._joinData.pseudo, this._playerColor)
 
-    this._socket.emit("setInstrument", this._playerInstr)
+    this._socket.emit("setInstrument", this._player._instruments[this._player._instrumentIndex])
 
     this._socket.on("updatePlayer", (players) => {
       this.updatePlayers(players)
@@ -229,9 +238,9 @@ class MusicIO {
   playNote (key) {
     for (let i = 0; i < this._binding.length; i++) {
       if (this._binding.charAt(i) === key) {
-        if (this._player._energyPool > 0) {
+        if (this._player._energy.pool > 0) {
           this._playerPlayed = true
-          this._orchestor.addSound(this._playerInstr, i)
+          this._orchestor.addSound(this._player._instruments[this._player._instrumentIndex], i)
           this._socket.emit("playNote", i)
         }
         break

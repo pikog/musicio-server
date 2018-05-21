@@ -79,9 +79,7 @@ class MusicIOEnergies {
 
   // Delete node at specified index
   die (index) {
-    if (this._ctx._player._energyPool < this._ctx._player._energyCap) {
-      this._ctx._player._energyPool++
-    }
+    this._ctx._player.addEnergy(1.5)
     this._holder.remove(this._nodes[index].mesh)
     this._nodes.splice(index, 1)
   }
