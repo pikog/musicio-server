@@ -12,31 +12,17 @@ class MusicIO {
         // Create context
         this.initContext()
 
-        // Events listener
-        this.initListener()
+        // Form handler
+        this.joinForm()
 
-        // Init sockets events
-        this.initSocket()
+        // Render first screen
+        this._composer.render()
 
-        // Fps meter (require stats.min.js)
-        this._stats = new Stats()
-        this._$output.appendChild(this._stats.dom)
-
-        // Start main loop
-        this.loop()
-
-        // Load medias
-        this.load()
       } else { // If no webgl
         this._$output.innerHTML = `Sorry you browser doesn't support webGL D:<br>
         <a href="https://www.mozilla.org/fr/firefox/" target="_blank" rel="noopener">Download Firefox here.</a>`
       }
     }
-  }
-
-  // Load ressources before game start
-  load () {
-
   }
 
   // Create default context
@@ -52,6 +38,17 @@ class MusicIO {
     // General DOM
     this._$output = this._$output
     this._$canvas = this._$output.querySelector("canvas")
+    this._$ = {
+      home: this._$output.querySelector(".home"),
+      joinForm: this._$output.querySelector(".joinForm"),
+      join: this._$output.querySelector(".joinForm .join"),
+      radio: this._$output.querySelectorAll(".joinForm [type='radio']"),
+      auto: this._$output.querySelector(".joinForm #auto"),
+      manual: this._$output.querySelector(".joinForm #manual"),
+      optional: this._$output.querySelector(".joinForm .optional"),
+      pseudo: this._$output.querySelector(".joinForm #pseudo"),
+      room: this._$output.querySelector(".joinForm #room")
+    }
 
     // Global
     this._w = this._$output.offsetWidth
@@ -111,12 +108,78 @@ class MusicIO {
       "string2"
     ]
     this._playerInstr = this._instr[Math.floor(Math.random() * this._instr.length)] // Define player instrument
-    this._orchestor = new Orchestor(4000, 200) // movInterval, playInterval
+    this._orchestor = new Orchestor(this, 4000, 200) // movInterval, playInterval
+
+    this._joinData = {
+      room: Math.floor(Math.random() * 5 + 1),
+      pseudo: `John Doe ${Date.now() % 10000}`
+    }
+  }
+
+  // Join form handler
+  joinForm () {
+    const hash = window.location.hash.slice(1)
+
+    if (hash) {
+      this._$.auto.checked = false
+      this._$.manual.checked = true
+      this._$.room.value = hash
+    }
+
+    // Radio choice
+    const checkSignup = () => {
+      this._$.auto.checked ? this._$.optional.classList.remove("active") : this._$.optional.classList.add("active")
+    }
+    for (let i = 0; i < this._$.radio.length; i++) {
+      this._$.radio[i].addEventListener("change", checkSignup)
+    }
+    checkSignup()
+
+    // Join
+    this._$.join.addEventListener("mouseup", () => {
+      if (this._loaded) {
+        // Dom modification
+        this._$.home.classList.remove("active")
+        setTimeout(() => {this._$.home.classList.add("hidden")}, 500)
+
+        // Handling form
+        if (!this._$.auto.checked && this._$.room.value) {
+          this._joinData.room = this._$.room.value
+        }
+        if (this._$.pseudo.value) {
+          this._joinData.pseudo = this._$.pseudo.value
+        }
+        // Launching session
+        this.launchSession()
+      }
+    })
+  }
+
+  launchSession () {
+    if (!this._playing) {
+      this._playing = true
+
+      window.location.hash = this._joinData.room
+
+      // Events listener
+      this.initListener()
+
+      // Init sockets events
+      this.initSocket()
+
+      // Fps meter (require stats.min.js)
+      this._stats = new Stats()
+      this._$output.appendChild(this._stats.dom)
+
+      // Start main loop
+      this.loop()
+    }
   }
 
   // Init events listener
   initListener () {
     // Resize handling
+    this.updateSize()
     window.addEventListener("resize", this.updateSize.bind(this))
 
     // Mouse info
@@ -148,7 +211,7 @@ class MusicIO {
 
   // Init socket event
   initSocket () {
-    this._socket.emit("join", "3", `${Math.random()}`, this._playerColor)
+    this._socket.emit("join", this._joinData.room, this._joinData.pseudo, this._playerColor)
 
     this._socket.emit("setInstrument", this._playerInstr)
 

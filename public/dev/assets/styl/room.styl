@@ -20,8 +20,14 @@
     display flex
     align-items center
     justify-content center
-    background url("../img/bg.png")
-    background-size cover
+    opacity 0
+    transition opacity .5s ease
+
+    &.active
+      opacity 1
+
+    &.hidden
+      display none
 
     &:before
       content ""
@@ -30,11 +36,24 @@
       position absolute
       top 50%
       left 50%
-      transform translate(-50%, -50%) skewY(-25deg)
+      transform translate(-50%, -50%) scale(1, 1) skewY(-25deg)
       z-index 15
-      animation skewIn 1s ease both
+      animation skewIn 1s ease both, breath 15s ease 1s alternate infinite
       will-change transform
       background linear-gradient(to right, color-purple, color-purple-light)
+
+    &:after
+      content ""
+      height 100%
+      width 100%
+      position absolute
+      top 0
+      left 0
+      z-index 10
+      background url("../img/bg.png")
+      background-size cover
+      animation breath2 30s ease 1s alternate infinite
+      will-change transform
 
     .container
       z-index 20
@@ -42,24 +61,106 @@
       padding 25px 25px 50px 25px
       background alpha(color-white, .1)
       border-radius 10px
-      box-shadow 1px 1px 5px alpha(color-black, .8)
+      box-shadow 1px 1px 5px alpha(color-black, .5)
       animation fadeIn 1s ease both
       will-change transform, opacity
 
-      h1
-        animation shiftIn .5s ease .5s both
-        will-change transform, opacity
-        font-size font-giant
-        font-weight 700
-        margin-bottom 25px
+    h1
+      animation shiftIn .5s ease .5s both
+      will-change transform, opacity
+      font-size font-giant
+      font-weight 700
+      margin-bottom 25px
 
-      p, .joinForm
+    p, .joinForm
+      will-change transform
+      animation shiftIn .5s ease 1s both
+
+    .joinForm
+      margin-top 25px
+      display flex
+      flex-flow column nowrap
+      justify-content center
+
+      .placeholder:after
+        content ""
+        position absolute
+        right 10px
+        top 50%
+        font-size font-small
+        color alpha(color-purple, .5)
+        transform translate(0, -50%)
+
+      .placeholder.pseudo:after
+        content "(pseudo)"
+
+      .placeholder.room:after
+        content "(room name)"
+
+      input[type="text"], button
+        width 100%
+
+      button
+        background alpha(color-purple, .5)
+        transition background ease .3s
+        position relative
+        overflow hidden
+
+      button:before
+        content ""
+        position absolute
+        top 50%
+        left 50%
+        z-index -5
+        width 100%
+        height 100%
+        border-radius 25px
+        background color-white
+        transform translate(-50%, -50%) scale(0, 0)
+        transition transform .3s ease
         will-change transform
-        animation shiftIn .5s ease 1s both
 
-      .joinForm
-        margin-top 25px
-        text-align center
+      button:hover
+        background alpha(color-purple, .7)
+        &:before
+          transform translate(-50%, -50%) scale(.8, 1.5)
+          transition transform .3s cubic-bezier(.25,.1,.5,1.5)
+
+      button:active
+        background alpha(color-purple, 1)
+        &:before
+          transform translate(-50%, -50%) scale(1, 1.5)
+
+      span
+        position relative
+
+      button span:before
+        content ""
+        position absolute
+        top 50%
+        left -30px
+        height 18px
+        width 18px
+        display block
+        background url("../img/loader.svg")
+        background-size contain
+        opacity .7
+        transform translate(0, -50%) rotateZ(0deg)
+        animation rotate 2s linear infinite
+
+    .about
+      position fixed
+      bottom 20px
+      left 20px
+      width 30px
+      height 30px
+      z-index 20
+      opacity .7
+      transform opacity .3s ease
+      will-change opacity
+
+      &:hover
+        opacity 1
 
 @keyframes skewIn {
   0%  { transform: translate(-50%, -50%) scale(1, 0) skewY(0deg); }
@@ -73,4 +174,16 @@
 
 @keyframes shiftIn {
   0%  { transform: translateY(50%); opacity: 0; }
+}
+
+@keyframes breath {
+  50% { transform: translate(-50%, -50%) scale(1.1, 1.1) skewY(-25deg); }
+}
+
+@keyframes breath2 {
+  50% { transform: scale(1.1, 1.1); }
+}
+
+@keyframes rotate {
+  100% { transform: translate(0, -50%) rotateZ(360deg); }
 }

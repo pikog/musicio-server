@@ -2,7 +2,8 @@
  * Sounds orchestor using Pizzicato
  */
 class Orchestor {
-  constructor (movInterval = 4000, playInterval = 200) {
+  constructor (ctx, movInterval = 4000, playInterval = 200) {
+    this._ctx = ctx
     this._basePATH = "assets/sounds/"
 
     // idea is to be able to play a sound with: this._sounds[mov]["instr"]["input"].play()
@@ -132,8 +133,6 @@ class Orchestor {
       2, 1, 0, 2
     ]
 
-    this._canLoop = false
-
     this.loadSound()
   }
 
@@ -162,7 +161,7 @@ class Orchestor {
             }
           }, () => {
             loaded++
-            console.log("Loading : ", Math.floor(loaded / loading * 10))
+            this._ctx._$.join.innerHTML = `<span>Loading (${loaded}/${loading})</span>`
             if (loaded / loading == 1) {
               this.init()
             }
@@ -174,8 +173,8 @@ class Orchestor {
   }
 
   init () {
-    console.log("All sound were loaded successfully")
-    this._canLoop = true
+    this._ctx._$.join.innerHTML = "Join"
+    this._ctx._loaded = true
   }
 
   addSound (instr, note) {
@@ -183,7 +182,7 @@ class Orchestor {
   }
 
   loop () {
-    if (this._canLoop) {
+    if (this._ctx._loaded) {
       this._now = Date.now()
       // Update structure interval
       this.updateStructure()
