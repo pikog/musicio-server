@@ -164,12 +164,82 @@
 
   .hud
     z-index 6
+    display flex
+    justify-content center
+    align-items flex-end
 
-    .energyPool
+    .energy
+      width 160px
+      height 160px
       position absolute
       left 50%
-      bottom 20px
+      bottom -70px
       transform translate(-50%, 0)
+
+    .energyCap, .energyPoolState, .energyPool
+      width inherit
+      height inherit
+      border-radius 50%
+      position absolute
+      left 0
+      top 0
+      display flex
+      justify-content center
+      align-items center
+
+    .energyCap
+      background alpha(color-white, .5)
+
+    .energyPoolState
+      background alpha(color-purple, .5)
+      transition transform .3s cubic-bezier(.25,.1,.5,1.5)
+      transform scale(.5, .5)
+      will-change transform
+
+    .energyPool
+      background none
+      top -15px
+
+    .instrument
+      position absolute
+      left 50%
+      bottom 100px
+      transform translate(-50%, 0)
+
+    .upgrade
+      z-index -1
+      display flex
+      flex-flow row nowrap
+      justify-content center
+      opacity 0
+      transform translateY(200%)
+      transition opacity .9s cubic-bezier(.25,.1,.5,1.5), transform .7s cubic-bezier(.25,.1,.5,1.5)
+      will-change transform, opacity
+
+      &.active
+        opacity 1
+        transform (translateY(-160px))
+
+        div
+          animation wiggle 1s ease infinite alternate
+          &:last-child
+            animation wiggle 1s ease .3s infinite alternate
+
+      div
+        text-align center
+        margin 0 25px
+        padding 10px 20px
+        cursor pointer
+        border-radius 2px
+        transition background .3s cubic-bezier(.25,.1,.5,1.5)
+        background alpha(color-purple, .5)
+        flex 1 0 50%
+        will-change transform
+
+        &:hover
+          background alpha(color-purple, .8)
+        &:active
+          background alpha(color-purple, 1)
 
 
 @keyframes skewIn {
@@ -196,4 +266,9 @@
 
 @keyframes rotate {
   100% { transform: translate(0, -50%) rotateZ(360deg); }
+}
+
+@keyframes wiggle {
+  33% { transform: scale(1.05, 1.05) rotateZ(1deg); }
+  66% { transform: scale(0.95, 0.95) rotateZ(-1deg); }
 }
