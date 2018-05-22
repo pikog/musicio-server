@@ -12,7 +12,7 @@ const port = process.env.PORT || 8080;
 //Start server
 http.listen(port, () =>
 {
-    console.log(`Server started on port ${port}`)
+  console.log(`Server started on port ${port}`)
 })
 
 //Init socket.io
@@ -24,11 +24,11 @@ app.use('/static', express.static(__dirname + '/public'))
 //Default route
 app.use((req, res, next) =>
 {
-    res.redirect(`/static/dev/`)
+  res.redirect(`/static/dev/`)
 })
 
 //Socket Event listener
 io.on('connection', (socket) =>
 {
-    connection.onConnection(socket)
+  connection.onConnection(socket)
 })
