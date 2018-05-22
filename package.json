@@ -36,11 +36,10 @@
     "run-sequence": "^2.2.1"
   },
   "dependencies": {
-    "npm": "^6.0.1",
     "chalk": "^2.3.2",
     "express": "^4.16.2",
-    "hbs": "^4.0.1",
     "matter-js": "^0.14.1",
+    "npm": "^6.0.1",
     "socket.io": "^2.0.4"
   }
 }
