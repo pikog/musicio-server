@@ -230,8 +230,14 @@ class Orchestor {
         }
       }
 
-      // Playing sound group
-      this._toPlay.play()
+      // Playing sound group & deal with chrome autoplay policy
+      if (!this._toPlay.play()) {
+        document.addEventListener("keyup", () => {
+          Pizzicato.context.resume().then(() => {
+            this._toPlay.play()
+          })
+        }, {once: true})
+      }
 
       // Unbuilding sound group
       for (const instr in this._playing) {
