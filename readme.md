@@ -1,7 +1,7 @@
 MusicIO
 ====
 
-A THREE.js solo school project.
+A musical experience.
 
 **[Live version here](https://musicio.edhbr.fr/)**
 
