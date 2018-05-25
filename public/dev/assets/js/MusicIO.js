@@ -213,10 +213,6 @@ class MusicIO {
     this._$.higherEnergyCap.addEventListener("mouseup", () => {
       this._player.upgrade("energy")
     })
-
-    /* document.addEventListener("mouseup", () => {
-      Math.floor(Math.random() * 2) ? this._camera.set("pos", {x: 0, y: 80, z: 0}) : this._camera.set("pos", {x: 0, y: 300, z: 0})
-    }) */
   }
 
   // Init socket event
@@ -238,7 +234,7 @@ class MusicIO {
   playNote (key) {
     for (let i = 0; i < this._binding.length; i++) {
       if (this._binding.charAt(i) === key) {
-        if (this._player._energy.pool > 0) {
+        if (this._player._energy.pool >= 1) {
           this._playerPlayed = true
           this._orchestor.addSound(this._player._instruments[this._player._instrumentIndex], i)
           this._socket.emit("playNote", i)
@@ -280,6 +276,10 @@ class MusicIO {
         if (this._otherPlayers[j].id == players[i].id) {
           this._otherPlayers[j].render.move(players[i])
           this._otherPlayers[j].musicInfo = players[i].musicInfo
+          if (this._otherPlayers[j].energy != players[i].energy) {
+            this._otherPlayers[j].energy = players[i].energy
+            this._otherPlayers[j].render.updateSize(this._otherPlayers[j].energy)
+          }
           found = true
           break
         }

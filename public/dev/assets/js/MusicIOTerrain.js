@@ -12,10 +12,10 @@ class MusicIOTerrain {
   // Create and noise terrain
   createTerrain () {
     const geometry = new THREE.PlaneGeometry(
-      this._ctx._terrain.width * 1.5,
-      this._ctx._terrain.height * 1.5,
-      this._ctx._terrain.width / 20,
-      this._ctx._terrain.height / 20
+      this._ctx._terrain.width * 3,
+      this._ctx._terrain.height * 3,
+      this._ctx._terrain.width / 10,
+      this._ctx._terrain.height / 10
     )
 
     // Noise geomrtry

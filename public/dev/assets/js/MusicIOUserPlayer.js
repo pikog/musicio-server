@@ -33,6 +33,7 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
     this._energy.total = 0
     this._energy.spent = 0
     this._energy.step = 15
+    this._energy.needUpdate = false
   }
 
   // Update depending on mouse position
@@ -44,7 +45,12 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
       const y = - Math.max(Math.min(this._ctx._mouse.y * this._speed, maxSpeed), - maxSpeed)
 
       // Tell server new vector
-      this._ctx._socket.emit("move", {x: x, y: y})
+      if (this._energy.needUpdate) {
+        this._energy.needUpdate = false
+        this._ctx._socket.emit("move", {x: x, y: y}, this._energy.total)
+      } else {
+        this._ctx._socket.emit("move", {x: x, y: y})
+      }
 
       // Local interpolation
       this.move({x: x, y: y}, true)
@@ -78,21 +84,24 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
 
   // Add energy to player
   addEnergy (point = 1) {
-    this._energy.total += point
-    this._energy.pool += point
+    this._energy.total = parseFloat((this._energy.total + point).toFixed(1))
+    this._energy.pool = parseFloat((this._energy.pool + point).toFixed(1))
     this._energy.pool = Math.min(this._energy.pool, this._energy.cap)
     this.updateEnergy()
+    this.updateSize(this._energy.total)
   }
 
   // Remove energy to player
   removeEnergy (point = 1) {
-    this._energy.pool -= point
+    this._energy.pool = parseFloat((this._energy.pool - point).toFixed(1))
     this._energy.pool = Math.max(this._energy.pool, 0)
     this.updateEnergy()
   }
 
   // Manage energy update (hud, level up, etc.)
   updateEnergy () {
+    this._energy.needUpdate = true
+
     const ratio = this._energy.pool / this._energy.cap
     this._ctx._$.energyPool.innerText = `${this._energy.pool} / ${this._energy.cap}`
     this._ctx._$.energyPoolState.style.transform = `scale(${ratio}, ${ratio})`
