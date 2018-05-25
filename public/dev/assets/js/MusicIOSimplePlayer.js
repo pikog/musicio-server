@@ -9,6 +9,7 @@ class MusicIOSimplePlayer {
     this._holder = new THREE.Object3D()
 
     this._radius = radius
+    this._scale = 1
 
     // Position holder
     this._pos = {x: 0, y: 0, z: 0}
@@ -31,6 +32,11 @@ class MusicIOSimplePlayer {
     this._mesh.rotation.x = -Math.PI / 2
 
     this._holder.add(this._mesh)
+  }
+
+  updateSize (value) {
+    this._scale = (this._radius + (Math.log10(value + 100) - 2) * 20) / 10
+    this._holder.scale.set(this._scale, this._scale, this._scale)
   }
 
   // Move player
