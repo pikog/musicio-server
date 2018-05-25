@@ -41,20 +41,19 @@ class MusicIOSimplePlayer {
   // Create name over player
   setName (name) {
     if (!this._name) {
-    this._name = name
+      this._name = name
+      const size = 1.5
       const geometry = new THREE.TextBufferGeometry(name, {
-        font: this._font,
-        size: 80,
-        height: 5,
+        font: this._ctx._font,
+        size: size,
+        height: 0.01,
         curveSegments: 12,
-        bevelEnabled: true,
-        bevelThickness: 10,
-        bevelSize: 8,
-        bevelSegments: 5
       })
-      const material = new THREE.MeshBasicMaterial({ color: 0x1a1a1a })
+      geometry.computeBoundingBox()
+      const material = new THREE.MeshBasicMaterial({ color: 0xdedede })
       this._name = new THREE.Mesh(geometry, material)
-      this._name.position.z = 15
+      this._name.position.set(-0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x), 15, 0)
+      this._name.rotation.x = -Math.PI / 2
       this._holder.add(this._name)
     }
   }
