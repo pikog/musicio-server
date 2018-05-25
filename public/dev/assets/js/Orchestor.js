@@ -38,6 +38,10 @@ class Orchestor {
           "string2/1_string2_2.wav",
           "string2/1_string2_3.wav",
           "string2/1_string2_4.wav"
+        ],
+        metronome : [
+          "metronome/tic.m4a",
+          "metronome/tac.m4a"
         ]
       },
       {
@@ -126,6 +130,8 @@ class Orchestor {
 
     this._structureIndex = 0
 
+    this._metronomeState = 0
+
     // Movement structure
     this._structure = [
       0, 0, 0, 0,
@@ -175,6 +181,8 @@ class Orchestor {
   init () {
     this._ctx._$.join.innerHTML = "Join"
     this._ctx._loaded = true
+    this._sounds[0]["metronome"][0].volume = 0.5
+    this._sounds[0]["metronome"][1].volume = 0.5
   }
 
   addSound (instr, note) {
@@ -247,6 +255,11 @@ class Orchestor {
           }
         }
       }
+
+      this._metronomeState = (this._metronomeState + 1) % 4
+      const state = this._metronomeState ? 1 : 0
+      this._sounds[0]["metronome"][state].stop()
+      this._sounds[0]["metronome"][state].play()
 
     }
   }

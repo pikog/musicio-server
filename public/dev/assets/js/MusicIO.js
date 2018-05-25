@@ -33,7 +33,7 @@ class MusicIO {
     this._loaded = false
 
     // Socket
-    this._socket = io()
+    this._socket = io() // localhost:8080
 
     // General DOM
     this._$output = this._$output
@@ -112,12 +112,12 @@ class MusicIO {
     // Sounds
     this._binding = "azer"
     this._playerPlayed = false
-    this._orchestor = new Orchestor(this, 4000, 200) // movInterval, playInterval
+    this._orchestor = new Orchestor(this, 4000, 400) // movInterval, playInterval
 
     // Fonts
     this._font = undefined
     const loader = new THREE.FontLoader()
-    loader.load("../fonts/ibm.typeface.json", (font) => { this._font = font })
+    loader.load("assets/fonts/ibm.json", (font) => { this._font = font })
 
     // Energies node
     this._energies = new MusicIOEnergies(this, 0.001) // density
