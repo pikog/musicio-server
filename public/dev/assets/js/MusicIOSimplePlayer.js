@@ -46,8 +46,8 @@ class MusicIOSimplePlayer {
       if (add) {
         this._pos.x = this._pos.x + position.x
         this._pos.z = this._pos.z + position.y
-        this._pos.x = Math.max(Math.min(this._pos.x, this._ctx._terrain.width - this._radius), this._radius)
-        this._pos.z = Math.max(Math.min(this._pos.z, this._ctx._terrain.height - this._radius), this._radius)
+        this._pos.x = Math.max(Math.min(this._pos.x, this._ctx._terrain.width - this._radius * this._scale), this._radius * this._scale)
+        this._pos.z = Math.max(Math.min(this._pos.z, this._ctx._terrain.height - this._radius * this._scale), this._radius * this._scale)
       } else {
         this._pos.x = position.x
         this._pos.z = position.y
