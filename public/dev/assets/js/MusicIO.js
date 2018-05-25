@@ -114,6 +114,11 @@ class MusicIO {
     this._playerPlayed = false
     this._orchestor = new Orchestor(this, 4000, 200) // movInterval, playInterval
 
+    // Fonts
+    this._font = undefined
+    const loader = new THREE.FontLoader()
+    loader.load("../fonts/ibm.typeface.json", (font) => { this._font = font })
+
     // Energies node
     this._energies = new MusicIOEnergies(this, 0.001) // density
 
@@ -145,19 +150,8 @@ class MusicIO {
 
     // Join
     this._$.join.addEventListener("mouseup", () => {
+      // Launching session if loaded
       if (this._loaded) {
-        // Dom modification
-        this._$.home.classList.remove("active")
-        setTimeout(() => {this._$.home.classList.add("hidden")}, 500)
-
-        // Handling form
-        if (!this._$.auto.checked && this._$.room.value) {
-          this._joinData.room = this._$.room.value
-        }
-        if (this._$.pseudo.value) {
-          this._joinData.pseudo = this._$.pseudo.value
-        }
-        // Launching session
         this.launchSession()
       }
     })
@@ -167,6 +161,22 @@ class MusicIO {
     if (!this._playing) {
       this._playing = true
 
+      // Dom modification
+      this._$.home.classList.remove("active")
+      setTimeout(() => {this._$.home.classList.add("hidden")}, 500)
+
+      // Handling form
+      if (!this._$.auto.checked && this._$.room.value) {
+        this._joinData.room = this._$.room.value
+      }
+      if (this._$.pseudo.value) {
+        this._joinData.pseudo = this._$.pseudo.value
+      }
+
+      // Set player name
+      this._player.setName(this._joinData.pseudo)
+
+      // Set window hash
       window.location.hash = this._joinData.room
 
       // Events listener
@@ -284,10 +294,11 @@ class MusicIO {
           break
         }
       }
+
       // If not, then create it
       if (!found) {
         this._otherPlayers.push(players[i])
-        this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOSimplePlayer(this, players[i].color)
+        this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOSimplePlayer(this, players[i].color, players[i].name)
       }
     }
 

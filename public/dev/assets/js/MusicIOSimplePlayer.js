@@ -2,9 +2,12 @@
  * Music IO simple player class
  */
 class MusicIOSimplePlayer {
-  constructor (ctx, color = ffffff, radius = 10) {
+  constructor (ctx, color = ffffff, radius = 10, name = false) {
     this._ctx = ctx
     this._color = new THREE.Color(color)
+    if (name) {
+      this.setName(name)
+    }
 
     this._holder = new THREE.Object3D()
 
@@ -16,6 +19,7 @@ class MusicIOSimplePlayer {
 
     this.createPlayer()
     this._ctx._scene.add(this._holder)
+
   }
 
   // Create player mesh
@@ -32,6 +36,27 @@ class MusicIOSimplePlayer {
     this._mesh.rotation.x = -Math.PI / 2
 
     this._holder.add(this._mesh)
+  }
+
+  // Create name over player
+  setName (name) {
+    if (!this._name) {
+    this._name = name
+      const geometry = new THREE.TextBufferGeometry(name, {
+        font: this._font,
+        size: 80,
+        height: 5,
+        curveSegments: 12,
+        bevelEnabled: true,
+        bevelThickness: 10,
+        bevelSize: 8,
+        bevelSegments: 5
+      })
+      const material = new THREE.MeshBasicMaterial({ color: 0x1a1a1a })
+      this._name = new THREE.Mesh(geometry, material)
+      this._name.position.z = 15
+      this._holder.add(this._name)
+    }
   }
 
   updateSize (value) {
