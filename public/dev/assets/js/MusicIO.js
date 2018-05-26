@@ -333,7 +333,12 @@ class MusicIO {
       // If not, then create it
       if (!found) {
         this._otherPlayers.push(players[i])
-        this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOSimplePlayer({ctx: this, color: players[i].color, name: players[i].name})
+        this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOSimplePlayer({
+          ctx: this,
+          color: players[i].color,
+          name: players[i].name,
+          scale: players[i].energy
+        })
       }
     }
 
