@@ -138,18 +138,15 @@ class Orchestor {
       1, 1, 0, 0,
       2, 1, 0, 2
     ]
-
-    this.loadSound()
   }
 
-  loadSound () {
-    let loading = 0, loaded = 0
+  loadSound (callback) {
 
     // Count number of sound to be loaded
     for (const movement of this._sounds) {
       for (const instr in movement) {
         for (const input in movement[instr]) {
-          loading++
+          this._ctx._loading.total++
         }
       }
     }
@@ -166,11 +163,7 @@ class Orchestor {
               release: 0
             }
           }, () => {
-            loaded++
-            this._ctx._$.join.innerHTML = `<span>Loading (${loaded}/${loading})</span>`
-            if (loaded / loading == 1) {
-              this.init()
-            }
+            callback()
           })
         }
       }
@@ -181,8 +174,8 @@ class Orchestor {
   init () {
     this._ctx._$.join.innerHTML = "Join"
     this._ctx._loaded = true
-    this._sounds[0]["metronome"][0].volume = 0.5
-    this._sounds[0]["metronome"][1].volume = 0.5
+    this._sounds[0]["metronome"][0].volume = 0.1
+    this._sounds[0]["metronome"][1].volume = 0.1
   }
 
   addSound (instr, note) {
