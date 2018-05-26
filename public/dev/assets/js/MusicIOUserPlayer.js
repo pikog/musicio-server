@@ -53,7 +53,7 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
       // Tell server new vector
       if (this._energy.needUpdate) {
         this._energy.needUpdate = false
-        this._ctx._socket.emit("move", {x: x, y: y}, this._energy.total)
+        this._ctx._socket.emit("move", {x: x, y: y}, this._energy.pool)
       } else {
         this._ctx._socket.emit("move", {x: x, y: y})
       }
