@@ -184,8 +184,10 @@ class MusicIO {
     if (this._loading.total && this._loading.done / this._loading.total == 1) {
       this._loaded = true
       this._$.join.innerHTML = "Join"
+      return true
     } else {
       this._$.join.innerHTML = `<span>Loading (${this._loading.done}/${this._loading.total})</span>`
+      return false
     }
   }
 
