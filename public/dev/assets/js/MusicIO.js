@@ -73,7 +73,7 @@ class MusicIO {
     }
     this._terrain.mesh = new MusicIOTerrain(this) // Terrain
     this._playerColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`
-    this._player = new MusicIOUserPlayer(this, this._playerColor, 2) // Player
+    this._player = new MusicIOUserPlayer({ctx: this, color: this._playerColor, speed: 2}) // Player
     this._otherPlayers = []
 
     this._camera = new Utils3.Camera( // Init camera
@@ -227,6 +227,7 @@ class MusicIO {
 
   // Init socket event
   initSocket () {
+    console.info(`Connecting to room ${this._joinData.room}`)
     this._socket.emit("join", this._joinData.room, this._joinData.pseudo, this._playerColor)
 
     this._socket.emit("setInstrument", this._player._instruments[this._player._instrumentIndex])
@@ -298,7 +299,7 @@ class MusicIO {
       // If not, then create it
       if (!found) {
         this._otherPlayers.push(players[i])
-        this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOSimplePlayer(this, players[i].color, players[i].name)
+        this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOSimplePlayer({ctx: this, color: players[i].color, name: players[i].name})
       }
     }
 

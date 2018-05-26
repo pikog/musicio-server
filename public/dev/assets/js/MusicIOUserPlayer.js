@@ -2,8 +2,14 @@
  * Music IO player class
  */
 class MusicIOUserPlayer extends MusicIOSimplePlayer {
-  constructor (ctx, color = ffffff, speed = 5) {
-    super(ctx, color)
+  constructor ({
+    ctx,
+    color = "#ffffff",
+    radius = 10,
+    name = false,
+    speed = 2
+  } = {}) {
+    super({ctx: ctx, color: color, radius: radius, name: name})
     this._speed = speed
 
     this._instruments = [ // All possible instrument
@@ -88,7 +94,7 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
     this._energy.pool = parseFloat((this._energy.pool + point).toFixed(1))
     this._energy.pool = Math.min(this._energy.pool, this._energy.cap)
     this.updateEnergy()
-    this.updateSize(this._energy.total)
+    this.updateSize(this._energy.pool)
   }
 
   // Remove energy to player
@@ -96,6 +102,7 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
     this._energy.pool = parseFloat((this._energy.pool - point).toFixed(1))
     this._energy.pool = Math.max(this._energy.pool, 0)
     this.updateEnergy()
+    this.updateSize(this._energy.pool)
   }
 
   // Manage energy update (hud, level up, etc.)
