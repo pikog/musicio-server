@@ -18,8 +18,8 @@ class MusicIOSimplePlayer {
     this._radius = radius
 
     this._scale = {
-      goal: scale,
-      current: scale
+      goal: 1,
+      current: 1
     }
 
     // Set default scale
