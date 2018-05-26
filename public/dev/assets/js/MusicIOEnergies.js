@@ -56,7 +56,7 @@ class MusicIOEnergies {
   checkCollision () {
     const playerX = this._ctx._player._pos.x
     const playerZ = this._ctx._player._pos.z
-    const radius = this._ctx._player._radius * this._ctx._player._scale
+    const radius = this._ctx._player._radius * this._ctx._player._scale.current
     const length = this._nodes.length
 
     let deleted = 0
@@ -80,7 +80,7 @@ class MusicIOEnergies {
 
   // Delete node at specified index
   die (index) {
-    this._ctx._player.addEnergy(2 / this._ctx._player._scale)
+    this._ctx._player.addEnergy(2 / this._ctx._player._scale.current)
     this._holder.remove(this._nodes[index].mesh)
     this._nodes.splice(index, 1)
   }
