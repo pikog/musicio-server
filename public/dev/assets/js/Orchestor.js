@@ -163,7 +163,9 @@ class Orchestor {
               release: 0
             }
           }, () => {
-            callback()
+            if (callback()) {
+              this.init()
+            }
           })
         }
       }
@@ -172,8 +174,6 @@ class Orchestor {
   }
 
   init () {
-    this._ctx._$.join.innerHTML = "Join"
-    this._ctx._loaded = true
     this._sounds[0]["metronome"][0].volume = 0.1
     this._sounds[0]["metronome"][1].volume = 0.1
   }
