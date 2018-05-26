@@ -337,7 +337,7 @@ class MusicIO {
           ctx: this,
           color: players[i].color,
           name: players[i].name,
-          scale: players[i].energy
+          defaultEnergy: players[i].energy
         })
       }
     }
