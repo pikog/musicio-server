@@ -15,6 +15,9 @@ class MusicIO {
         // Form handler
         this.joinForm()
 
+        // Load assets
+        this.assetsLoader()
+
         // Render first screen
         this._composer.render()
 
@@ -31,6 +34,10 @@ class MusicIO {
     // Game state
     this._playing = false
     this._loaded = false
+    this._loading = {
+      done: 0,
+      total: 0
+    }
 
     // Socket
     this._socket = io() // localhost:8080
@@ -96,8 +103,10 @@ class MusicIO {
       scene: this._scene,
       camera: this._camera,
       bloom: this._shader,
-      vignette: this._shader
+      vignette: this._shader,
+      outline: this._shader
     })
+    this._terrain.mesh.createBorder()
 
     // Mouse
     this._mouse = {
@@ -116,8 +125,6 @@ class MusicIO {
 
     // Fonts
     this._font = undefined
-    const loader = new THREE.FontLoader()
-    loader.load("assets/fonts/ibm.json", (font) => { this._font = font })
 
     // Energies node
     this._energies = new MusicIOEnergies(this, 0.001) // density
@@ -155,6 +162,31 @@ class MusicIO {
         this.launchSession()
       }
     })
+  }
+
+  // Load all assets for musicIO
+  assetsLoader () {
+    this._loading.total = 0
+    this._loading.done = 0
+    this._orchestor.loadSound(this.loadedCallback.bind(this))
+
+    const fontLoader = new THREE.FontLoader()
+    this._loading.total++
+    fontLoader.load("assets/fonts/ibm_plex_medium.json", (font) => {
+      this._font = font
+      this.loadedCallback()
+    })
+  }
+
+  // Callback fired once an asset is loaded
+  loadedCallback () {
+    this._loading.done++
+    if (this._loading.total && this._loading.done / this._loading.total == 1) {
+      this._loaded = true
+      this._$.join.innerHTML = "Join"
+    } else {
+      this._$.join.innerHTML = `<span>Loading (${this._loading.done}/${this._loading.total})</span>`
+    }
   }
 
   launchSession () {

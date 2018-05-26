@@ -5,8 +5,12 @@ class MusicIOTerrain {
   constructor (ctx) {
     this._ctx = ctx
 
+    this._holder = new THREE.Object3D()
+
     this.createTerrain()
     this.createLight()
+
+    this._ctx._scene.add(this._holder)
   }
 
   // Create and noise terrain
@@ -32,19 +36,35 @@ class MusicIOTerrain {
       roughness: 0.6
     })
 
-    this._mesh = new THREE.Mesh(geometry, material)
-    this._mesh.rotation.x = -Math.PI / 2
-    this._mesh.position.set(this._ctx._terrain.width / 2, -10, this._ctx._terrain.height / 2)
+    this._floor = new THREE.Mesh(geometry, material)
+    this._floor.rotation.x = -Math.PI / 2
+    this._floor.position.set(this._ctx._terrain.width / 2, -10, this._ctx._terrain.height / 2)
 
-    this._ctx._scene.add(this._mesh)
+    this._holder.add(this._floor)
+  }
+
+  // Create visual terrain border
+  createBorder () {
+    const geometry = new THREE.PlaneGeometry(this._ctx._terrain.width, this._ctx._terrain.height, 1, 1)
+
+    const material = new THREE.MeshBasicMaterial({
+      transparent: true,
+      opacity: 0
+    })
+
+    this._border = new THREE.Mesh(geometry, material)
+    this._border.rotation.x = -Math.PI / 2
+    this._border.position.set(this._ctx._terrain.width / 2, 10, this._ctx._terrain.height / 2)
+    this._holder.add(this._border)
+    this._ctx._composer.outlineSelect([this._border])
   }
 
   // Create light
   createLight () {
     this._sunLight = new THREE.DirectionalLight(0xffffff, 0.5)
     this._sunLight.position.set(1, 1, 1)
-    this._ctx._scene.add(this._sunLight)
+    this._holder.add(this._sunLight)
     this._ambientLight = new THREE.AmbientLight(0x292929, 0.5)
-    this._ctx._scene.add(this._ambientLight)
+    this._holder.add(this._ambientLight)
   }
 }

@@ -216,8 +216,11 @@ const Utils3 = (function () {
         this._scene,
         this._camera
       )
-      this._outlinePass.pulsePeriod = 3
-      this._outlinePass.hiddenEdgeColor.set("#000000")
+      this._outlinePass.pulsePeriod = 5
+      this._outlinePass.edgeStrength = 10
+      this._outlinePass.visibleEdgeColor.set("#ff0000")
+      this._outlinePass.hiddenEdgeColor.set("#ff0000")
+      this._outlineArray = []
 
       // CopyPass
       this._copyPass = new THREE.ShaderPass(THREE.CopyShader)
@@ -260,6 +263,7 @@ const Utils3 = (function () {
       if (this._config.outline) { this._composer.addPass(this._outlinePass) }
 
       this._composer.addPass(this._copyPass)
+      this.outlineSelect(this._outlineArray)
     }
 
     // Update size
@@ -271,13 +275,16 @@ const Utils3 = (function () {
         this._scene,
         this._camera
       )
-      this._outlinePass.pulsePeriod = 3
-      this._outlinePass.hiddenEdgeColor.set("#000000")
+      this._outlinePass.pulsePeriod = 5
+      this._outlinePass.edgeStrength = 10
+      this._outlinePass.visibleEdgeColor.set("#ff0000")
+      this._outlinePass.hiddenEdgeColor.set("#ff0000")
       this.updatePass()
     }
 
     // Outline required object
     outlineSelect (array = []) {
+      this._outlineArray = array
       this._outlinePass.selectedObjects = array
     }
 
