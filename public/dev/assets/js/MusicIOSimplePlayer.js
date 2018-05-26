@@ -6,18 +6,25 @@ class MusicIOSimplePlayer {
     ctx,
     color = "#ffffff",
     radius = 10,
-    name = false
+    name = false,
+    defaultEnergy = false
   } = {}) {
     this._ctx = ctx
     this._color = new THREE.Color(color)
 
     this._holder = new THREE.Object3D()
 
-
+    // Player radius
     this._radius = radius
+
     this._scale = {
-      goal: 1,
-      current: 1
+      goal: scale,
+      current: scale
+    }
+
+    // Set default scale
+    if (defaultEnergy) {
+      this.updateSize(defaultEnergy, true)
     }
 
     // Position holder
@@ -75,8 +82,11 @@ class MusicIOSimplePlayer {
     }
   }
 
-  updateSize (value) {
+  updateSize (value, instant = false) {
     this._scale.goal = 1 + 0.015 * value //(this._radius + (Math.log10(value + 100) - 2) * 20) / 10
+    if (instant) {
+      this._scale.current = this._scale.goal
+    }
   }
 
   // Move player
