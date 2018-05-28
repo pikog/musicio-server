@@ -121,7 +121,7 @@ class MusicIO {
     // Sounds
     this._binding = "azer"
     this._playerPlayed = false
-    this._orchestor = new Orchestor(this, 4000, 400) // movInterval, playInterval
+    this._orchestor = new Orchestor(this, 4000, 200) // movInterval, playInterval
 
     // Fonts
     this._font = undefined
