@@ -249,10 +249,12 @@ class Orchestor {
         }
       }
 
-      this._metronomeState = (this._metronomeState + 1) % 4
-      const state = this._metronomeState ? 1 : 0
-      this._sounds[0]["metronome"][state].stop()
-      this._sounds[0]["metronome"][state].play()
+      this._metronomeState = (this._metronomeState + 1) % 8
+      if ((this._metronomeState + 1) % 2) {
+        const state = this._metronomeState / 2 ? 1 : 0
+        this._sounds[0]["metronome"][state].stop()
+        this._sounds[0]["metronome"][state].play()
+      }
 
     }
   }
