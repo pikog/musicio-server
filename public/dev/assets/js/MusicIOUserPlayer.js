@@ -79,11 +79,14 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
 
   // Upgrade player
   upgrade (type = "energy") {
-    if (this._energy.total - this._energy.spent >= this._energy.step) {
+    if (type == "ShiftLeft") { type = "instrument"}
+    else if (type == "Space") { type = "energy"}
+
+    if (this._energy.total - this._energy.spent >= this._energy.step && (type == "energy" || type == "instrument")) {
       this._energy.spent += this._energy.step
       this._energy.step *= 1.15
       if (type == "energy") { this._energy.cap += 10 }
-      if (type == "instrument") { this.newInstrument() }
+      else if (type == "instrument") { this.newInstrument() }
       this.updateEnergy()
     }
   }

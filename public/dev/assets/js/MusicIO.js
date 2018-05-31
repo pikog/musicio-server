@@ -119,7 +119,7 @@ class MusicIO {
     this._input = {}
 
     // Sounds
-    this._binding = "azer"
+    this._binding = ["KeyQ", "KeyW", "KeyE", "KeyR"]// Stand for "a, z, e, r" or "q, w, e, r"
     this._playerPlayed = false
     this._orchestor = new Orchestor(this, 4000, 200) // movInterval, playInterval
 
@@ -245,10 +245,11 @@ class MusicIO {
 
     // Key info
     document.addEventListener("keydown", (e) => {
-      this._input[e.key] = true
-      this.playNote(e.key)
+      this._input[e.code] = true
+      this.playNote(e.code)
+      this._player.upgrade(e.code)
     })
-    document.addEventListener("keyup", (e) => { this._input[e.key] = false })
+    document.addEventListener("keyup", (e) => { this._input[e.code] = false })
 
     this._$.newInstrument.addEventListener("mouseup", () => {
       this._player.upgrade("instrument")
@@ -278,7 +279,7 @@ class MusicIO {
   // When user play a note
   playNote (key) {
     for (let i = 0; i < this._binding.length; i++) {
-      if (this._binding.charAt(i) === key) {
+      if (this._binding[i] === key) {
         if (this._player._energy.pool >= 1) {
           this._playerPlayed = true
           this._orchestor.addSound(this._player._instruments[this._player._instrumentIndex], i)
