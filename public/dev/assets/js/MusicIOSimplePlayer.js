@@ -40,7 +40,7 @@ class MusicIOSimplePlayer {
 
   // Create player mesh
   createPlayer () {
-    const geometry = new THREE.SphereBufferGeometry(this._radius, Math.floor(Math.random() * 3 + 7), Math.floor(Math.random() * 3 + 7))
+    const geometry = new THREE.SphereBufferGeometry(this._radius, Math.floor(Math.random() * 3 + 9), Math.floor(Math.random() * 3 + 9))
     const material = new THREE.MeshStandardMaterial({
       color: this._color,
       flatShading: true,
@@ -49,7 +49,6 @@ class MusicIOSimplePlayer {
     })
 
     this._mesh = new THREE.Mesh(geometry, material)
-    this._mesh.rotation.x = -Math.PI / 2
 
     this._holder.add(this._mesh)
   }
