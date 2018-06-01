@@ -44,9 +44,12 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
 
   // Update depending on mouse position
   update () {
+    // Check is mouse if far enough
     const distToCenter = Math.sqrt(this._ctx._mouse.x ** 2 + this._ctx._mouse.y ** 2)
     if (distToCenter > 0.05) {
+      // Define max speed
       const maxSpeed = 0.5 * this._speed
+      // Define new x / y vector
       const x = Math.max(Math.min(this._ctx._mouse.x * this._speed, maxSpeed), - maxSpeed)
       const y = - Math.max(Math.min(this._ctx._mouse.y * this._speed, maxSpeed), - maxSpeed)
 
@@ -60,17 +63,44 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
 
       // Local interpolation
       this.move({x: x, y: y}, true)
+
+      // Check instrument collision
+      this.checkInstrumentCollision()
     } else {
       this._ctx._socket.emit("move", {x: 0, y: 0})
     }
   }
 
+  // Check collision between player and instrument on map
+  checkInstrumentCollision () {
+    for (const instrument of this._ctx._instrumentsHolder) {
+      const dist = Math.sqrt((this._pos.x - instrument._pos.x) ** 2 + (this._pos.z - instrument._pos.z) ** 2)
+      if (dist < (this._radius + instrument._radius * 1.2)) {
+        this._ctx._socket.emit("removeInstrument", instrument._pos.x, instrument._pos.y)
+        this.newInstrument() // instrument._name
+      }
+    }
+  }
+
   // Get a new instrument
-  newInstrument () {
+  newInstrument (name = false) {
     // Find new instrument different of current one
-    const lastIndex = this._instrumentIndex
-    this._instrumentIndex = Math.floor(Math.random() * (this._instruments.length - 1))
-    if (this._instrumentIndex >= lastIndex) { this._instrumentIndex++ }
+    let found = false
+    if (name) {
+      for (let i = 0; i < this._instruments.length; i++) {
+        if (this._instruments[i] == name) {
+          this._instrumentIndex = i
+          found = true
+          break
+        }
+      }
+    }
+
+    if (!name || !found) {
+      const lastIndex = this._instrumentIndex
+      this._instrumentIndex = Math.floor(Math.random() * (this._instruments.length - 1))
+      if (this._instrumentIndex >= lastIndex) { this._instrumentIndex = (this._instrumentIndex + 1) % this._instruments.length }
+    }
 
     // Set it
     this._ctx._socket.emit("setInstrument", this._instruments[this._instrumentIndex])
