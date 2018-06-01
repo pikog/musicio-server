@@ -107,6 +107,7 @@ class MusicIO {
       outline: this._shader
     })
     this._terrain.mesh.createBorder()
+    this._instrumentsHolder = []
 
     // Mouse
     this._mouse = {
@@ -262,17 +263,38 @@ class MusicIO {
 
   // Init socket event
   initSocket () {
+    // Join room
     console.info(`Connecting to room ${this._joinData.room}`)
     this._socket.emit("join", this._joinData.room, this._joinData.pseudo, this._playerColor)
 
+    // Set player instrument
     this._socket.emit("setInstrument", this._player._instruments[this._player._instrumentIndex])
 
+    // Update player event
     this._socket.on("updatePlayer", (players) => {
       this.updatePlayers(players)
     })
 
+    // Player play event
     this._socket.on("aPlayerPlayNote", (data) => {
       this.updateSound(data)
+    })
+
+    // New instrument event
+    this._socket.on("newIntrument", (instrument) => {
+      this._instrumentsHolder.push(new MusicIOInstrument(this, instrument))
+    })
+    this._instrumentsHolder.push(new MusicIOInstrument(this, 10, 10, "cello"))
+
+    // Remove instrument event
+    this._socket.on("instrumentRemoved", (instrument) => {
+      for (let i = 0; i < this._instrumentsHolder.length; i++) {
+        if (this._instrumentsHolder[i]._pos.x == instrument.x && this._instrumentsHolder[i].pos.z == instrument.y) {
+          this._instrumentsHolder[i].die()
+          this._instrumentsHolder.splice(i, 1)
+          break
+        }
+      }
     })
   }
 
