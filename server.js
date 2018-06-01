@@ -19,13 +19,7 @@ http.listen(port, () =>
 const io = require('socket.io').listen(http)
 
 //Active public folder
-app.use('/static', express.static(__dirname + '/public'))
-
-//Default route
-app.use((req, res, next) =>
-{
-  res.redirect(`/static/dev/`)
-})
+app.use('/', express.static(__dirname + '/public'))
 
 //Socket Event listener
 io.on('connection', (socket) =>
