@@ -218,8 +218,6 @@ const Utils3 = (function () {
       )
       this._outlinePass.pulsePeriod = 5
       this._outlinePass.edgeStrength = 10
-      this._outlinePass.visibleEdgeColor.set("#ff0000")
-      this._outlinePass.hiddenEdgeColor.set("#ff0000")
       this._outlineArray = []
 
       // CopyPass
@@ -277,8 +275,6 @@ const Utils3 = (function () {
       )
       this._outlinePass.pulsePeriod = 5
       this._outlinePass.edgeStrength = 10
-      this._outlinePass.visibleEdgeColor.set("#ff0000")
-      this._outlinePass.hiddenEdgeColor.set("#ff0000")
       this.updatePass()
     }
 
