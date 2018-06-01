@@ -281,15 +281,14 @@ class MusicIO {
     })
 
     // New instrument event
-    this._socket.on("newIntrument", (instrument) => {
-      this._instrumentsHolder.push(new MusicIOInstrument(this, instrument))
+    this._socket.on("newInstrument", (instrument) => {
+      this._instrumentsHolder.push(new MusicIOInstrument(this, instrument.x, instrument.y, instrument.type))
     })
-    this._instrumentsHolder.push(new MusicIOInstrument(this, 10, 10, "cello"))
 
     // Remove instrument event
     this._socket.on("instrumentRemoved", (instrument) => {
       for (let i = 0; i < this._instrumentsHolder.length; i++) {
-        if (this._instrumentsHolder[i]._pos.x == instrument.x && this._instrumentsHolder[i].pos.z == instrument.y) {
+        if (this._instrumentsHolder[i]._pos.x == instrument.x && this._instrumentsHolder[i]._pos.z == instrument.y) {
           this._instrumentsHolder[i].die()
           this._instrumentsHolder.splice(i, 1)
           break

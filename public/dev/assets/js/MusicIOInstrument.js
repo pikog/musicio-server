@@ -15,6 +15,8 @@ class MusicIOInstrument {
 
     this._radius = 4
 
+    this._dead = false
+
     // Mesh holder
     this._holder = new THREE.Object3D()
     this._holder.position.set(this._pos.x, this._pos.y, this._pos.z)
@@ -33,5 +35,6 @@ class MusicIOInstrument {
   // Delete instrument
   die () {
     this._ctx._scene.remove(this._holder)
+    this._dead = true
   }
 }

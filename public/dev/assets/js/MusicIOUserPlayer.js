@@ -75,8 +75,9 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
   checkInstrumentCollision () {
     for (const instrument of this._ctx._instrumentsHolder) {
       const dist = Math.sqrt((this._pos.x - instrument._pos.x) ** 2 + (this._pos.z - instrument._pos.z) ** 2)
-      if (dist < (this._radius + instrument._radius * 1.2)) {
-        this._ctx._socket.emit("removeInstrument", instrument._pos.x, instrument._pos.y)
+      if (!instrument._dead && dist < (this._radius + instrument._radius * 1.3)) {
+        this._ctx._socket.emit("removeInstrument", instrument._pos.x, instrument._pos.z)
+        instrument.die()
         this.newInstrument() // instrument._name
       }
     }
