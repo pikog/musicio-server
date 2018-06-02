@@ -52,7 +52,7 @@ const runSequence = require('run-sequence')
  */
 
 // Global path
-const devPath = 'public/dev/'
+const devPath = 'public/'
 
 const path = {
   styl: `${devPath}assets/styl/main.styl`,
@@ -72,7 +72,7 @@ folders = ['assets/img', 'assets/sounds']
 // static = html, !static = php
 const static = false
 // If static = false, then set local path :
-const localPath = 'localhost:8080/static/dev'
+const localPath = 'localhost:8080'
 
 /*
  *

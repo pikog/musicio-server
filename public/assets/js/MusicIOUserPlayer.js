@@ -24,8 +24,8 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
       "Cello",
       "Clarinet",
       "Harp",
-      "String",
-      "String II"
+      "Violin",
+      "Double bass"
     ]
 
     this._instrumentIndex = Math.floor(Math.random() * this._instruments.length) // Define default player instrument
@@ -75,7 +75,7 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
   checkInstrumentCollision () {
     for (const instrument of this._ctx._instrumentsHolder) {
       const dist = Math.sqrt((this._pos.x - instrument._pos.x) ** 2 + (this._pos.z - instrument._pos.z) ** 2)
-      if (!instrument._dead && dist < (this._radius + instrument._radius * 1.3)) {
+      if (!instrument._dead && dist < (this._radius * this._scale.current + instrument._radius)) {
         this._ctx._socket.emit("removeInstrument", instrument._pos.x, instrument._pos.z)
         instrument.die()
         this.newInstrument() // instrument._name
@@ -148,9 +148,10 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
     this._ctx._$.energyPoolState.style.transform = `scale(${ratio}, ${ratio})`
 
     if (this._energy.total - this._energy.spent >= this._energy.step) {
-      this._ctx._$.upgrade.classList.add("active")
+      this.upgrade("energy")
+      // this._ctx._$.upgrade.classList.add("active")
     } else {
-      this._ctx._$.upgrade.classList.remove("active")
+      // this._ctx._$.upgrade.classList.remove("active")
     }
   }
 }
