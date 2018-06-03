@@ -157,9 +157,15 @@ class MusicIO {
     checkSignup()
 
     // Join
+
+    // On click
     this._$.join.addEventListener("mouseup", () => {
-      // Launching session if loaded
-      if (this._loaded) {
+      this.launchSession()
+    })
+
+    // Or on enter
+    document.addEventListener("keydown", (e) => {
+      if (e.code == "Enter") {
         this.launchSession()
       }
     })
@@ -193,7 +199,7 @@ class MusicIO {
   }
 
   launchSession () {
-    if (!this._playing) {
+    if (this._loaded && !this._playing) {
       this._playing = true
 
       // Dom modification
