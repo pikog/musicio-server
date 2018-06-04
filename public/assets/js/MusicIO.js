@@ -120,9 +120,9 @@ class MusicIO {
     this._input = {}
 
     // Sounds
-    this._binding = ["KeyQ", "KeyW", "KeyE", "KeyR"]// Stand for "a, z, e, r" or "q, w, e, r"
+    this._binding = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY"]// Stand for "a, z, e, r" or "q, w, e, r"
     this._playerPlayed = false
-    this._orchestor = new Orchestor(this, 4000, 200) // movInterval, playInterval
+    this._orchestor = new Orchestor(this, 3200, 200) // movInterval, playInterval
 
     // Fonts
     this._font = undefined

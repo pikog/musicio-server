@@ -13,19 +13,29 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
     this._speed = speed
 
     this._instruments = [ // All possible instrument
+      "bass",
       "cello",
-      "clarinet",
+      "horn",
       "harp",
-      "string",
-      "string2"
+      "metallo",
+      "pizzi",
+      "sitar",
+      "trumpet",
+      "violin",
+      "xylo"
     ]
 
     this._instrumentsText = [
+      "Bass",
       "Cello",
-      "Clarinet",
+      "French Horn",
       "Harp",
+      "Metallophone",
+      "Pizzicato violin",
+      "Sitar",
+      "Trumpet",
       "Violin",
-      "Double bass"
+      "Xylophone"
     ]
 
     this._instrumentIndex = Math.floor(Math.random() * this._instruments.length) // Define default player instrument
