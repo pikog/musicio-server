@@ -37,3 +37,10 @@ A musical experience.
 ## Gallery (first few rooms)
 
 > Coming soon !
+
+## Todo
+
+- Option to toggle:
+  - Metronome
+  - Shaders
+- Place metronome on movement change
