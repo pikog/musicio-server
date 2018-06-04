@@ -447,11 +447,16 @@ class Orchestor {
       const playing = {...this._playing}
       //console.log(this._playing)
       this._playing = {
-        cello : {},
-        clarinet : {},
-        harp : {},
-        string : {},
-        string2 : {}
+        bass: {},
+        cello: {},
+        horn:{},
+        harp: {},
+        metallo: {},
+        pizzi: {},
+        sitar: {},
+        trumpet: {},
+        violin: {},
+        xylo: {}
       }
 
       // Building sound group
