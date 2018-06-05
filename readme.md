@@ -43,4 +43,5 @@ A musical experience.
 - Option to toggle:
   - Metronome
   - Shaders
-- Place metronome on movement change
+- Proportionnal acceleration ?
+- Tutorial
