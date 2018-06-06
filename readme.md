@@ -40,8 +40,5 @@ A musical experience.
 
 ## Todo
 
-- Option to toggle:
-  - Metronome
-  - Shaders
 - Proportionnal acceleration ?
 - Tutorial

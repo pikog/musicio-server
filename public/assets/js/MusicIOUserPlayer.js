@@ -58,7 +58,7 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
     const distToCenter = Math.sqrt(this._ctx._mouse.x ** 2 + this._ctx._mouse.y ** 2)
     if (distToCenter > 0.05) {
       // Define max speed
-      const maxSpeed = 0.5 * this._speed
+      const maxSpeed = 0.5 * this._speed / (this._scale.current * 0.6)
       // Define new x / y vector
       const x = Math.max(Math.min(this._ctx._mouse.x * this._speed, maxSpeed), - maxSpeed)
       const y = - Math.max(Math.min(this._ctx._mouse.y * this._speed, maxSpeed), - maxSpeed)
