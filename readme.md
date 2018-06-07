@@ -40,5 +40,5 @@ A musical experience.
 
 ## Todo
 
-- Proportionnal acceleration ?
-- Tutorial
+- Favicon
+- Mobile disclaimer
