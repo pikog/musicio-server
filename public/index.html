@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="assets/css/main.css" />
   <!--endbuild-->
 </head>
-<body>
   <div class="musicIOApp noselect">
     <div class="home active">
       <div class="container">
@@ -33,7 +32,7 @@
               <input type="text" id="room" name="room" placeholder="moon">
             </div>
           <div class="inputWrapper">
-            <button class="join"><span>Loading (00/253)</span></button>
+            <button class="join"><span>Loading (0%)</span></button>
           </div>
         </div>
       </div>
@@ -46,11 +45,33 @@
         <div class="energyCap"></div>
         <div class="energyPoolState"></div>
         <div class="energyPool">5 / 10</div>
+        <div class="energyTxt">(energy)</div>
       </div>
       <div class="instrument">Playing: Cello</div>
-      <div class="upgrade">
-        <div class="newInstrument"><em>[shift]</em> New instrument ?</div>
-        <div class="higherEnergyCap"><em>[space]</em> Higher energy cap ?</div>
+      <div class="help">
+        <div class="helpContainer">
+          <h2>How to play:</h2>
+          <div class="wrapper helpMove">
+            <h3>Move with:</h3>
+            <svg alt="Mouse & Trackpad"><use xlink:href="assets/img/icons.svg#mouseTpad"></use></svg>
+          </div>
+          <div class="wrapper helpPlay">
+              <h3>Play instrument with:</h3>
+            <svg alt="QWERTY"><use xlink:href="assets/img/icons.svg#qwerty"></use></svg>
+            or
+            <svg alt="AZERTY"><use xlink:href="assets/img/icons.svg#azerty"></use></svg>
+          </div>
+          <div class="wrapper helpInstrument">
+              <h3>Change instrument by eating:</h3>
+            <svg alt="Torus Knot"><use xlink:href="assets/img/icons.svg#torusKnot"></use></svg>
+          </div>
+          <div class="wrapper helpEnergy">
+              <h3>Regain energy by eating:</h3>
+            <svg alt="Node"><use xlink:href="assets/img/icons.svg#node"></use></svg>
+          </div>
+          <button class="gotIt"><em>[space]</em> Got it!</button>
+        </div>
+        <aside>Toggle help with <em>[space]</em></aside>
       </div>
     </div>
     <canvas>Your browser doesn't support canvas D:</canvas>

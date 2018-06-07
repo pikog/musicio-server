@@ -63,9 +63,9 @@ class MusicIO {
       energyPoolState: this._$output.querySelector(".hud .energyPoolState"),
       energyPool: this._$output.querySelector(".hud .energyPool"),
       instrument: this._$output.querySelector(".hud .instrument"),
-      upgrade: this._$output.querySelector(".hud .upgrade"),
-      newInstrument: this._$output.querySelector(".hud .newInstrument"),
-      higherEnergyCap: this._$output.querySelector(".hud .higherEnergyCap")
+      help: this._$output.querySelector(".help .helpContainer"),
+      gotIt: this._$output.querySelector(".help .gotIt"),
+      helpAside: this._$output.querySelector(".help aside")
     }
 
     // Global
@@ -193,7 +193,7 @@ class MusicIO {
       this._$.join.innerHTML = "Join"
       return true
     } else {
-      this._$.join.innerHTML = `<span>Loading (${this._loading.done}/${this._loading.total})</span>`
+      this._$.join.innerHTML = `<span>Loading (${Math.floor(this._loading.done / this._loading.total * 100)}%)</span>`
       return false
     }
   }
@@ -219,6 +219,10 @@ class MusicIO {
 
       // Set window hash
       window.location.hash = this._joinData.room
+
+      // Init helpl
+      this._$.help.classList.add("active")
+      this._$.helpAside.classList.remove("active")
 
       // Events listener
       this.initListener()
@@ -255,16 +259,16 @@ class MusicIO {
       this._input[e.code] = true
       this.playNote(e.code)
       this._player.upgrade(e.code)
+      if (e.code == "Space") {
+        this.toggleHelp()
+      }
+    })
+
+    this._$.gotIt.addEventListener("mouseup", () => {
+      this.toggleHelp()
     })
     document.addEventListener("keyup", (e) => { this._input[e.code] = false })
 
-    this._$.newInstrument.addEventListener("mouseup", () => {
-      this._player.upgrade("instrument")
-    })
-
-    this._$.higherEnergyCap.addEventListener("mouseup", () => {
-      this._player.upgrade("energy")
-    })
   }
 
   // Init socket event
@@ -314,6 +318,14 @@ class MusicIO {
         }
         break
       }
+    }
+  }
+
+  // Toggle help popup
+  toggleHelp () {
+    if (this._playing) {
+      this._$.help.classList.toggle("active")
+      this._$.helpAside.classList.toggle("active")
     }
   }
 

@@ -159,9 +159,6 @@ class MusicIOUserPlayer extends MusicIOSimplePlayer {
 
     if (this._energy.total - this._energy.spent >= this._energy.step) {
       this.upgrade("energy")
-      // this._ctx._$.upgrade.classList.add("active")
-    } else {
-      // this._ctx._$.upgrade.classList.remove("active")
     }
   }
 }
