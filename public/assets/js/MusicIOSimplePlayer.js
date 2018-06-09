@@ -106,7 +106,11 @@ class MusicIOSimplePlayer {
       this._holder.position.set(this._pos.x, 0, this._pos.z)
     }
     if (this._scale.goal != this._scale.current) {
-      this._scale.current += 0.002 * Math.sign(this._scale.goal - this._scale.current)
+      const sign = Math.sign(this._scale.goal - this._scale.current)
+      this._scale.current += 0.002 * sign
+      if (sign != Math.sign(this._scale.goal - this._scale.current)) {
+        this._scale.current = this._scale.goal
+      }
       this._holder.scale.set(this._scale.current, this._scale.current, this._scale.current)
     }
   }
