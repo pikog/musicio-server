@@ -82,6 +82,7 @@ class MusicIO {
     this._playerColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`
     this._player = new MusicIOUserPlayer({ctx: this, color: this._playerColor, speed: 2}) // Player
     this._otherPlayers = []
+    this._updatingPlayers = false
 
     this._camera = new Utils3.Camera( // Init camera
       this._player._holder,
@@ -331,55 +332,59 @@ class MusicIO {
 
   // Update all players
   updatePlayers (players) {
-    // Update our player
-    this._player.move(...players.splice(0, 1))
-    // Then update others
+    if (!this._updatingPlayers) {
+      this._updatingPlayers = true
+      // Update our player
+      this._player.move(...players.splice(0, 1))
+      // Then update others
 
-    // Looking in otherPlayers
-    for (let i = 0; i < this._otherPlayers.length; i++) {
-      let dead = true
-      // For dead one
-      for (let j = 0; j < players.length; j++) {
-        if (players[j].id && this._otherPlayers[i].id && players[j].id == this._otherPlayers[i].id) {
-          dead = false
-          break
-        }
-      }
-      // If dead then die and delete from array
-      if (dead) {
-        this._otherPlayers[i].render.die()
-        this._otherPlayers.splice(i, 1)
-      }
-    }
-
-    // Looking in players
-    for (let i = 0; i < players.length; i++) {
-      let found = false
-      // For the same one in otherPlayers
-      for (let j = 0; j < this._otherPlayers.length; j++) {
-        // If found, then update
-        if (this._otherPlayers[j].id == players[i].id) {
-          this._otherPlayers[j].render.move(players[i])
-          this._otherPlayers[j].musicInfo = players[i].musicInfo
-          if (this._otherPlayers[j].energy != players[i].energy) {
-            this._otherPlayers[j].energy = players[i].energy
-            this._otherPlayers[j].render.updateSize(this._otherPlayers[j].energy)
+      // Looking in otherPlayers
+      for (let i = 0; i < this._otherPlayers.length; i++) {
+        let dead = true
+        // For dead one
+        for (let j = 0; j < players.length; j++) {
+          if (players[j].id && this._otherPlayers[i].id && players[j].id == this._otherPlayers[i].id) {
+            dead = false
+            break
           }
-          found = true
-          break
+        }
+        // If dead then die and delete from array
+        if (dead) {
+          this._otherPlayers[i].render.die()
+          this._otherPlayers.splice(i, 1)
         }
       }
 
-      // If not, then create it
-      if (!found) {
-        this._otherPlayers.push(players[i])
-        this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOSimplePlayer({
-          ctx: this,
-          color: players[i].color,
-          name: players[i].name,
-          defaultEnergy: players[i].energy
-        })
+      // Looking in players
+      for (let i = 0; i < players.length; i++) {
+        let found = false
+        // For the same one in otherPlayers
+        for (let j = 0; j < this._otherPlayers.length; j++) {
+          // If found, then update
+          if (this._otherPlayers[j].id == players[i].id) {
+            this._otherPlayers[j].render.move(players[i])
+            this._otherPlayers[j].musicInfo = players[i].musicInfo
+            if (this._otherPlayers[j].energy != players[i].energy) {
+              this._otherPlayers[j].energy = players[i].energy
+              this._otherPlayers[j].render.updateSize(this._otherPlayers[j].energy)
+            }
+            found = true
+            break
+          }
+        }
+
+        // If not, then create it
+        if (!found) {
+          this._otherPlayers.push(players[i])
+          this._otherPlayers[this._otherPlayers.length - 1].render = new MusicIOSimplePlayer({
+            ctx: this,
+            color: players[i].color,
+            name: players[i].name,
+            defaultEnergy: players[i].energy
+          })
+        }
       }
+      this._updatingPlayers = false
     }
 
   }

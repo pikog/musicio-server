@@ -40,5 +40,5 @@ A musical experience.
 
 ## Todo
 
-- Favicon
 - Mobile disclaimer
+- Better random nickname
