@@ -40,5 +40,5 @@ A musical experience.
 
 ## Todo
 
-- Mobile disclaimer
 - Better random nickname
+- Size only on server event or everytime
