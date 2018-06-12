@@ -397,9 +397,7 @@ class Orchestor {
               release: 0
             }
           }, () => {
-            if (callback()) {
-              this.init()
-            }
+            callback()
           })
         }
       }

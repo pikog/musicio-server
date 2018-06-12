@@ -192,6 +192,7 @@ class MusicIO {
     if (this._loading.total && this._loading.done / this._loading.total == 1) {
       this._loaded = true
       this._$.join.innerHTML = "Join"
+      this._orchestor.init()
       return true
     } else {
       this._$.join.innerHTML = `<span>Loading (${Math.floor(this._loading.done / this._loading.total * 100)}%)</span>`
@@ -366,7 +367,7 @@ class MusicIO {
             this._otherPlayers[j].musicInfo = players[i].musicInfo
             if (this._otherPlayers[j].energy != players[i].energy) {
               this._otherPlayers[j].energy = players[i].energy
-              this._otherPlayers[j].render.updateSize(this._otherPlayers[j].energy)
+              this._otherPlayers[j].render.updateSize(this._otherPlayers[j].energy, true)
             }
             found = true
             break

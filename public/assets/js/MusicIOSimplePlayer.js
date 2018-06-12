@@ -85,6 +85,7 @@ class MusicIOSimplePlayer {
     this._scale.goal = 1 + 0.015 * value //(this._radius + (Math.log10(value + 100) - 2) * 20) / 10
     if (instant) {
       this._scale.current = this._scale.goal
+      this._holder.scale.set(this._scale.current, this._scale.current, this._scale.current)
     }
   }
 
