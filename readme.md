@@ -41,4 +41,3 @@ A musical experience.
 ## Todo
 
 - Better random nickname
-- Size only on server event or everytime

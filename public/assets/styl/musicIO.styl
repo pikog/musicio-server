@@ -258,6 +258,15 @@
 
       .wrapper
         text-align center
+        margin-top 20px
+
+      .wrapper.inline
+        display flex
+        flex-flow row nowrap
+        justify-content center
+        align-items center
+        width 100%
+        margin 0
 
       svg
         max-height 40px
@@ -276,6 +285,7 @@
         margin 0 auto
         transform translateX(-50%)
         transition transform .3s ease
+        animation wiggle .6s linear infinite
         will-change transform
 
         &:hover
@@ -308,6 +318,6 @@
 }
 
 @keyframes wiggle {
-  33% { transform: scale(1.05, 1.05) rotateZ(1deg); }
-  66% { transform: scale(0.95, 0.95) rotateZ(-1deg); }
+  25% { transform: translateX(-50%) scale(1.05, 1.05) rotateZ(1deg); }
+  75% { transform: translateX(-50%) scale(0.95, 0.95) rotateZ(-1deg); }
 }
