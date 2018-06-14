@@ -37,7 +37,3 @@ A musical experience.
 ## Gallery (first few rooms)
 
 > Coming soon !
-
-## Todo
-
-- Better random nickname
