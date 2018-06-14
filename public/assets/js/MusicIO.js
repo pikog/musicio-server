@@ -143,7 +143,7 @@ class MusicIO {
         this._joinData.pseudo = JSON.parse(xhr.responseText).surname
       }
     }
-    xhr.open("GET", "https://uinames.com/api/", true)
+    xhr.open("GET", "https://uinames.com/api/?region=united%20states", true)
     xhr.send()
   }
 
