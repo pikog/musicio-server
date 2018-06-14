@@ -141,7 +141,6 @@ class MusicIO {
     xhr.onreadystatechange = () => {
       if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
         this._joinData.pseudo = JSON.parse(xhr.responseText).surname
-        console.log(xhr.responseText)
       }
     }
     xhr.open("GET", "https://uinames.com/api/", true)
