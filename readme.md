@@ -11,13 +11,17 @@ A musical experience.
 - Run `node server.js` to launch node server
 - Run `gulp` (gulp-cli required)
 
-> Note: We came accross some bug with npm recently but `npm i` and `gulp` should still run fine.
+> You **must** run the node server **before** running gulp
 
 ## Features
 
+- Over 220 uniques sounds (made by @Lucas Resch)
+- Loader for assets (~25Mo)
 - Play music with friends and other people
-- Upgrade your music player
-- Room selection
+- Upgrade your energy pool by eating nodes so you can play even more music
+- Auto room asignment
+- Manual room selection and easy url sharing
+- Prefilling form according to context
 
 ## Tech
 - Front:
@@ -34,6 +38,6 @@ A musical experience.
 - Development:
   - Gulp
 
-## Gallery (first few rooms)
+## Gallery
 
 > Coming soon !
