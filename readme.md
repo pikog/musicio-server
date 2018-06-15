@@ -22,6 +22,7 @@ A musical experience.
 - Auto room asignment
 - Manual room selection and easy url sharing
 - Prefilling form according to context
+- International keyboard support
 
 ## Tech
 - Front:
