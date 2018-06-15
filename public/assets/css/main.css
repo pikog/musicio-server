@@ -160,7 +160,7 @@ input[type="radio"]:checked + label.hiddenRadio {
   transform: translate(0, -50%);
 }
 .musicIOApp .home .joinForm .placeholder.pseudo:after {
-  content: "(pseudo)";
+  content: "(player name)";
 }
 .musicIOApp .home .joinForm .placeholder.room:after {
   content: "(room name)";

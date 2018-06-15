@@ -23,6 +23,7 @@ A musical experience.
 - Manual room selection and easy url sharing
 - Prefilling form according to context
 - International keyboard support
+- Random or custom nickname
 
 ## Tech
 - Front:
@@ -33,6 +34,8 @@ A musical experience.
   - [THREE.js](https://threejs.org/) (webGL)
   - [Pizzicato.js](https://alemangui.github.io/pizzicato/) (audio), overkill right now but planned to add sounds according to current room.
   - [Mordernizr.js](https://modernizr.com/) (compatibility)
+- APIs:
+  - [UInames](https://uinames.com/) (random nickname)
 - Back:
   - [Node.js](https://nodejs.org/)
   - [Socket.io](https://socket.io/)
