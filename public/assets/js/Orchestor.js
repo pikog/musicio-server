@@ -495,11 +495,11 @@ class Orchestor {
         //   this._sounds[0]["metronome"][state + 1].play()
         // }
       this._sounds[0]["metronome"][0].volume = 0.2
-      this._metronomeState = (this._metronomeState + 1) % 64
       if (!this._metronomeState) {
         this._sounds[0]["metronome"][0].stop()
         this._sounds[0]["metronome"][0].play()
       }
+      this._metronomeState = (this._metronomeState + 1) % 64
 
     }
   }
