@@ -26,6 +26,7 @@ A musical experience.
 - Random or custom nickname
 - Server side physics
 - Local interpolation
+- Mobile disclaimer
 
 ## Tech
 - Front:
