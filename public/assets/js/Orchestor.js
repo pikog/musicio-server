@@ -90,7 +90,7 @@ class Orchestor {
           "xylo/1_xylo_6.wav"
         ],
         metronome : [
-          "theme_debug.wav",
+          "theme.wav",
           "metronome/tic.m4a",
           "metronome/tac.m4a"
         ]
