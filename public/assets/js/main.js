@@ -1,1 +1,1 @@
-const game = new MusicIO(".musicIOApp")
+new MusicIO(".musicIOApp")
