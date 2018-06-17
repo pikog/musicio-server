@@ -381,7 +381,7 @@ class Orchestor {
       for (const instr in movement) {
         for (const input in movement[instr]) {
           this._ctx._loading.total++
-          this._metronomeState = 1
+          this._metronomeState = 2
         }
       }
     }
