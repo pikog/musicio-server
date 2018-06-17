@@ -24,6 +24,8 @@ A musical experience.
 - Prefilling form according to context
 - International keyboard support
 - Random or custom nickname
+- Server side physics
+- Local interpolation
 
 ## Tech
 - Front:
