@@ -242,8 +242,8 @@ class MusicIO {
       this.initSocket()
 
       // Fps meter (require stats.min.js)
-      this._stats = new Stats()
-      this._$output.appendChild(this._stats.dom)
+      //this._stats = new Stats()
+      //this._$output.appendChild(this._stats.dom)
 
       // Start main loop
       this.loop()
@@ -426,6 +426,6 @@ class MusicIO {
     this._orchestor.loop()
     this._player.update()
     this._energies.checkCollision()
-    this._stats.update() // Stats
+    //this._stats.update() // Stats
   }
 }
