@@ -90,6 +90,7 @@ class Orchestor {
           "xylo/1_xylo_6.wav"
         ],
         metronome : [
+          "theme.wav",
           "metronome/tic.m4a",
           "metronome/tac.m4a"
         ]
@@ -406,8 +407,8 @@ class Orchestor {
   }
 
   init () {
-    this._sounds[0]["metronome"][0].volume = 0.1
-    this._sounds[0]["metronome"][1].volume = 0.1
+    this._sounds[0]["metronome"][0].volume = 0
+    this._sounds[0]["metronome"][0].play()
   }
 
   addSound (instr, note) {
@@ -486,11 +487,18 @@ class Orchestor {
         }
       }
 
-      this._metronomeState = (this._metronomeState + 1) % 8
-      if ((this._metronomeState + 1) % 2) {
-        const state = this._metronomeState / 2 ? 1 : 0
-        this._sounds[0]["metronome"][state].stop()
-        this._sounds[0]["metronome"][state].play()
+      // Old metronome
+      // this._metronomeState = (this._metronomeState + 1) % 8
+      // if ((this._metronomeState + 1) % 2) {
+        //   const state = this._metronomeState / 2 ? 1 : 0
+        //   this._sounds[0]["metronome"][state + 1].stop()
+        //   this._sounds[0]["metronome"][state + 1].play()
+        // }
+      this._sounds[0]["metronome"][0].volume = 0.2
+      this._metronomeState = (this._metronomeState + 1) % 32
+      if (!this._metronomeState) {
+        this._sounds[0]["metronome"][0].stop()
+        this._sounds[0]["metronome"][0].play()
       }
 
     }
