@@ -44,7 +44,3 @@ A musical experience.
   - [Socket.io](https://socket.io/)
 - Development:
   - Gulp
-
-## Gallery
-
-> Coming soon !
